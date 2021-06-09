@@ -1,2 +1,2 @@
-# MBGE_411
+# MBGE 411
 Course content for MBGE 411 Genome Analysis and Bioinformatics @Koc University
