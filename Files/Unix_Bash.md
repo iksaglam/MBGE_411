@@ -400,3 +400,32 @@ mbge411@login02:~$ less mylongfile.txt
 
 `less` allows you to move up and down the file using `arrow keys`. You can even jump a whole page using the `SpaceBar` or move back a page by pressing `b`. You can jump to the end of the file by pressing `Shift+g` or go back to the top of the file by pressing `gg`. 
 
+### Filters
+
+The `Unix/Linux` command line is such a powerful tool for filtering data that once you have a basic understanding of it, it will be hard to go back to GUI spreadsheets (i.e. `Excel` and the like). Filters in `Unix/Linux` are specific commands that accept textual data and transform it in a way more suited to our needs or what we wish to see.
+
+We will introduce the usage of these commands by direct example and manipulation of the file `isophya.csv`. Also, please remember that almost all commands introduced below have multiple options so make sure to check out their `man` pages.
+
+Before moving on to specific commands let us first view our example file using the `cat` command.
+
+```Bash
+mbge411@login02:~$ cd week01_tutorial/filters/
+mbge411@login02:~/week01_tutorial/filters$ ls
+isophya.csv uarctos.metadata
+mbge411@login02:~/week01_tutorial/filters$ cat isophya.csv
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
