@@ -614,7 +614,7 @@ IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 ```
 
-### WC
+### wc
 
 `wc`, stands for word count and as the name suggests this command counts words. The default output of this command returns the `number of lines, words and characters` (in that order). If we want to restrict the command to only count `words`, `characters` or `lines` then we can specify this as options.
 
@@ -635,7 +635,7 @@ mbge411@login02:~/week01_tutorial/filters$ wc -wm isophya.csv
 70 373 isophya.csv
 ```
 
-### CUT
+### cut
 
 Usually we work with files that are separated into fields or columns and sometimes we need to filter out a certain field or column to work on just that variable. If this is your need then `cut` is the command for you.
 
@@ -679,7 +679,7 @@ mbge411@login02:~/week01_tutorial/filters$ cut -d' ' -f3,5 isophya2.csv
 2300 75.81
 ```
 
-### UNIQ
+### uniq
 
 `uniq` stands for `unique` and its job is to `remove duplicate lines` from the data. However, it only works if `duplicate lines are adjacent` (i.e. one after the other). Sometimes this is not the case, but this can be fixed by `sorting first` and using `uniq` (we will later see how we can use several commands sequentially via piping).
 
@@ -709,7 +709,7 @@ mbge411@login02:~/week01_tutorial/filters$ uniq -c isophya.csv
       3 CKLYU	Pale	2300	0.00	75.81
 ```
 
-## SED
+## sed
 
 `sed` is a command that allows us to do a `search and replace` on our data and stands for `Stream Editor`. `sed` is a very powerful and versatile command but here we will only look at its basic function. A basic expression for `search and replace` is like below:
 
@@ -738,7 +738,7 @@ CKLYU	Pale	2300	0.00	75.81
 ```
 
 
-## GREP & REGULAR EXPRESSIONS
+## Grep & Regular Expressions
 
 `grep` is a command that will `search` a given file and `print every line` which `contains a given pattern`. In many ways `searching for patterns is the core concept` of bioinformatics so `grep` is one of the, if not the most used, command in a bioinformaticians arsenal. Below are some examples of how grep works.
 
@@ -827,7 +827,7 @@ KALEK	Pale	2100	0.05	76.74
 KALEK	Pale	2100	0.05	76.74
 ```
 
-## PIPING & REDIRECTING
+## Piping & redirecting
 
 Uptill now we have seen a lot of different commands we can use in `Unix/Linux` to manipulate data. However, one of the most powerful features of `Unix/Linux` is that we can join different commands together to do even more powerful stuff. What we essentially do is take the `output` of one command and use it as `input` in another command and we can extend this process until achieving our goal, no matter how many different commands we might need. This process is known as `piping` and coming up with analysis pathways that use multiple commands or programs to manipulate or analyze data are called `pipelines`.
 
@@ -917,7 +917,7 @@ mbge411@login02:~/week01_tutorial/filters$ cat count.pale
 8
 ```
 
-## AWK
+## awk
 
 `Awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into it here. The things you can do with `awk` are limitless and I will leave it up to you to discover. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
 
