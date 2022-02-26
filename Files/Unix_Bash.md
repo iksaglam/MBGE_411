@@ -32,7 +32,7 @@
 
 #
 
-### Opening a Terminal
+## Opening a Terminal
 
 Opening a terminal is easy but will differ from system to system. Below are a few places to start looking depending on which system you are on.
 
@@ -40,7 +40,7 @@ Opening a terminal is easy but will differ from system to system. Below are a fe
 - On a Mac you will find it under `Applications -> Utilities`.
 - On a Windows machine the terminal is called a command prompt and you can find this under `Start -> Program Files -> Accessories -> Command Prompt`. However, Windows does not have a native bash shell so in Windows 10 you will need to separately install [Bash](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10) or if you are using an older version of windows you will need to install an external SSH client. [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) or [Cygwin](https://cygwin.com/install.html) are rather good ones.
 
-### Connect to a server using SSH
+## Connect to a server using SSH
 
 SSH is a protocol through which you can access your remote server and run shell commands. SSH is encrypted with Secure Sockets Layer (SSL), which makes it difficult for these communications to be intercepted and read.
 
@@ -60,7 +60,7 @@ Ap9r3LqVVm
 Notice that as you type, none of the characters will be displayed on the screen. This is normal so be very careful to type correctly.
 
 
-### The Shell: Bash
+## The Shell: Bash
 
 Once logged in (or connected) to our remote server we will be greeted by the shell interface. This is a part of the operating system that defines how you will interact with your computer and how it will behave and look after running (or executing) commands. There are various shells available but the most common and the one linux computers (such as our remote server) uses is called bash which stands for Bourne again shell. 
 
@@ -73,6 +73,7 @@ mbge411@login02:~$ echo $SHELL
 
 As we can see this command prints out something ending in bash and verifies that we are indeed using the bash shell.
 
+## Navigating the Shell
 ### Navigating the Shell: Where are we?
 
 Once we have logged on to our server the first thing we want to know is where we are. To do this we will enter the command pwd which stands for Print Working Directory.
@@ -178,7 +179,7 @@ mbge411@login02:/kuacc$ cd
 mbge411@login02:~$ ls
 bin  scripts  Spring2019  Spring2020  week01_tutorial
 ```
-
+## File Manipulation
 ### File Manipulation: Making a directory
 
 Creating a directory is pretty easy. The command we use is `mkdir` which stands for Make Directory. Using this command let us create a new directory under our own name
@@ -190,7 +191,6 @@ mbge411@login02:~$ mkdir ismail
 mbge411@login02:~$ ls
 bin  ismail  scripts  Spring2019  Spring2020  week01_tutorial
 ```
-
 
 ### File Manipulation: Removing a Directory
 
@@ -283,7 +283,7 @@ example3.txt
 Note that this time to remove the directory `example3/` we used the command rm `-r` and not `rmdir`. This is because `rmdir` only works with empty directories. If directories have files or subdirectories within them `rmdir` will not work.
 
 
-### Wildcards
+## Wildcards
 
 Above we learned some useful commands to manipulate files and directories. However, as you might have noticed we manipulated files or directories one by one. When we have a lot of files this might not be practical and having a way to manipulate several files at once would be really useful.
 
@@ -352,7 +352,7 @@ mbge411@login02:~/week01_tutorial/wildcards$ ls *[1-3]*
 example1.txt example2.txt example3.txt foo1.jpg foo2.jpg foo3.jpg gmail1.thml gmail2.html gmail3.html
 ```
 
-### Viewing and editing files
+## Viewing and editing files
 
 In the previous sections we created and manipulated files that were blank. Of course in reality we will not be working with blank files but with read data (i.e. files that contain information). An important part of our workflow will entail working with files containing information and creating and writing new information to new files. 
 
@@ -431,7 +431,7 @@ mbge411@login02:~$ less mylongfile.txt
 
 `less` allows you to move up and down the file using `arrow keys`. You can even jump a whole page using the `SpaceBar` or move back a page by pressing `b`. You can jump to the end of the file by pressing `Shift+g` or go back to the top of the file by pressing `gg`. 
 
-### Filters
+## Filters
 
 The `Unix/Linux` command line is such a powerful tool for filtering data that once you have a basic understanding of it, it will be hard to go back to GUI spreadsheets (i.e. `Excel` and the like). Filters in `Unix/Linux` are specific commands that accept textual data and transform it in a way more suited to our needs or what we wish to see.
 
@@ -679,34 +679,6 @@ mbge411@login02:~/week01_tutorial/filters$ cut -d' ' -f3,5 isophya2.csv
 2300 75.81
 ```
 
-### SED
-
-`sed` is a command that allows us to do a `search and replace` on our data and stands for `Stream Editor`. `sed` is a very powerful and versatile command but here we will only look at its basic function. A basic expression for `search and replace` is like below:
-
-`s/search/replace/g`
-
-The initial `s` stands for `substitute` and designates the action to be performed. Between the `first and second slashes` we place the `pattern` we are `searching`. Between the `second and third slash` we place the `pattern` we wish to `replace` with. `g` stands for `global` and designates we want to replace all instances of the pattern on each line. If we omit the `g` then the command will `replace` the `first instance` of the pattern on each line.
-
-To give an example let us `replace` all instances of `dark` with `blue`:
-
-```Bash
-mbge411@login02:~/week01_tutorial/filters$ sed 's/Dark/Blue/g' isophya.csv
-IST06	Blue	450	-0.94	65.9
-IST06	Blue	450	-0.94	65.9
-PLVYL	Blue	850	-0.77	73.7
-PLVYL	Blue	850	-0.77	73.7
-IST13	Blue	1000	-0.86	75.66
-IST13	Blue	1000	-0.86	75.66
-PIKNK	Pale	1300	0.58	78
-VRCNK	Pale	2000	0.81	76.92
-KALEK	Pale	2100	0.05	76.74
-KALEK	Pale	2100	0.05	76.74
-KALEK	Pale	2100	0.05	76.74
-CKLYU	Pale	2300	0.00	75.81
-CKLYU	Pale	2300	0.00	75.81
-CKLYU	Pale	2300	0.00	75.81
-```
-
 ### UNIQ
 
 `uniq` stands for `unique` and its job is to `remove duplicate lines` from the data. However, it only works if `duplicate lines are adjacent` (i.e. one after the other). Sometimes this is not the case, but this can be fixed by `sorting first` and using `uniq` (we will later see how we can use several commands sequentially via piping).
@@ -737,7 +709,36 @@ mbge411@login02:~/week01_tutorial/filters$ uniq -c isophya.csv
       3 CKLYU	Pale	2300	0.00	75.81
 ```
 
-### GREP & REGULAR EXPRESSIONS
+## SED
+
+`sed` is a command that allows us to do a `search and replace` on our data and stands for `Stream Editor`. `sed` is a very powerful and versatile command but here we will only look at its basic function. A basic expression for `search and replace` is like below:
+
+`s/search/replace/g`
+
+The initial `s` stands for `substitute` and designates the action to be performed. Between the `first and second slashes` we place the `pattern` we are `searching`. Between the `second and third slash` we place the `pattern` we wish to `replace` with. `g` stands for `global` and designates we want to replace all instances of the pattern on each line. If we omit the `g` then the command will `replace` the `first instance` of the pattern on each line.
+
+To give an example let us `replace` all instances of `dark` with `blue`:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ sed 's/Dark/Blue/g' isophya.csv
+IST06	Blue	450	-0.94	65.9
+IST06	Blue	450	-0.94	65.9
+PLVYL	Blue	850	-0.77	73.7
+PLVYL	Blue	850	-0.77	73.7
+IST13	Blue	1000	-0.86	75.66
+IST13	Blue	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+
+## GREP & REGULAR EXPRESSIONS
 
 `grep` is a command that will `search` a given file and `print every line` which `contains a given pattern`. In many ways `searching for patterns is the core concept` of bioinformatics so `grep` is one of the, if not the most used, command in a bioinformaticians arsenal. Below are some examples of how grep works.
 
@@ -826,7 +827,7 @@ KALEK	Pale	2100	0.05	76.74
 KALEK	Pale	2100	0.05	76.74
 ```
 
-### PIPING & REDIRECTING
+## PIPING & REDIRECTING
 
 Uptill now we have seen a lot of different commands we can use in `Unix/Linux` to manipulate data. However, one of the most powerful features of `Unix/Linux` is that we can join different commands together to do even more powerful stuff. What we essentially do is take the `output` of one command and use it as `input` in another command and we can extend this process until achieving our goal, no matter how many different commands we might need. This process is known as `piping` and coming up with analysis pathways that use multiple commands or programs to manipulate or analyze data are called `pipelines`.
 
@@ -916,12 +917,12 @@ mbge411@login02:~/week01_tutorial/filters$ cat count.pale
 8
 ```
 
-### AWK
+## AWK
 
 `Awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into it here. The things you can do with `awk` are limitless and I will leave it up to you to discover. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
 
 
-### THE END
+## THE END
 
 Congratulations you have reached the end of your first `Unix/Linux` tutorial!! Be warned that you have only scratched the surface of what you can do with this very powerful system. I have intentionally left some things out  because a good portion of learning the `Unix/Linux` and the `Bash` environment is going `online` and finding solutions to your problems. There are many online sources like [Stackoverflow](https://stackoverflow.com/) or the Unix and Linux [Forums](https://www.unix.com/), and you should make a habit of checking them out regularly. 
 
