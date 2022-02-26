@@ -428,4 +428,479 @@ CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
 ```
+### Head
+
+`Head` is a command that prints out a certain number of lines of a given file. The default number of lines is 10, but we can modify this number using the option `-n`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ head isophya.csv
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+```
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ head -n 6 isophya.csv
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+```
+
+### Tail
+
+`Tail` is the opposite of head and prints out the last certain number of lines of a given file. Default number of lines is 10, but we can modify this number using the option `-n`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ tail isophya.csv
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ tail -n 3 isophya.csv
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+You can also do reverse filtering using `tail`. For example, if we wanted to filter out the first 2 lines of our file we could use the following command:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ tail -n +3 isophya.csv
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+Here we are essentially telling our file to start printing from the top 3rd line.
+
+### Sort
+
+`Sort`, does exactly what it says and sorts files. The command by default will `sort alphabetically` and use the first column. But there are many options to modify the sorting process as we will see below.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ sort isophya.csv
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+PIKNK	Pale	1300	0.58	78
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+VRCNK	Pale	2000	0.81	76.92
+```
+
+We can also `sort` using any column by designating the desired column with the `-k` option. For example if we want to sort by column 3:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ sort -k3 isophya.csv
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+```
+
+Notice above that the `-k3` option sorted our file `alphabetically`. However, since column three is numeric `sorting numerically` would make more sense. We can do this by using the `-n` option.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ sort -nk3 isophya.csv
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+Lastly, perhaps we want to `sort` in the `reverse order` (i.e. from high to low). We can do this by introducing the `-r` option.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ sort -rnk3 isophya.csv
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+VRCNK	Pale	2000	0.81	76.92
+PIKNK	Pale	1300	0.58	78
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+```
+
+### WC
+
+`wc`, stands for word count and as the name suggests this command counts words. The default output of this command returns the `number of lines, words and characters` (in that order). If we want to restrict the command to only count `words`, `characters` or `lines` then we can specify this as options.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ wc isophya.csv
+14 70 373 isophya.csv 
+```
+
+Sometimes you want to count only lines `-l`, or words `-w` or characters `-m` or a combination of the two.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ wc -l isophya.csv 
+14 isophya.csv
+```
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ wc -wm isophya.csv 
+70 373 isophya.csv
+```
+
+### CUT
+
+Usually we work with files that are separated into fields or columns and sometimes we need to filter out a certain field or column to work on just that variable. If this is your need then `cut` is the command for you.
+
+In our sample file we have 5 columns (or fields): `population`, `color`, `altitude`, `body size index` and `humidity`. Let us say we only want to view the `color column`. We can use the following command to achive this.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ cut -f2 isophya.csv
+Dark
+Dark
+Dark
+Dark
+Dark
+Dark
+Pale
+Pale
+Pale
+Pale
+Pale
+Pale
+Pale
+Pale
+```
+
+`cut` by default uses the `TAB` character as `field separator`. However, our files might use other separators such as `,` or `space`. For these cases we can specify the separator using the `-d` option. For example, for a file where columns are separated by `spaces` if we wanted to extract `columns 3 and 5` we would use the following command:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ cut -d' ' -f3,5 isophya2.csv
+450 65.9
+450 65.9
+850 73.7
+850 73.7
+1000 75.66
+1000 75.66
+1300 78
+2000 76.92
+2100 76.74
+2100 76.74
+2100 76.74
+2300 75.81
+2300 75.81
+2300 75.81
+```
+
+### SED
+
+`sed` is a command that allows us to do a `search and replace` on our data and stands for `Stream Editor`. `sed` is a very powerful and versatile command but here we will only look at its basic function. A basic expression for `search and replace` is like below:
+
+`s/search/replace/g`
+
+The initial `s` stands for `substitute` and designates the action to be performed. Between the `first and second slashes` we place the `pattern` we are `searching`. Between the `second and third slash` we place the `pattern` we wish to `replace` with. `g` stands for `global` and designates we want to replace all instances of the pattern on each line. If we omit the `g` then the command will `replace` the `first instance` of the pattern on each line.
+
+To give an example let us `replace` all instances of `dark` with `blue`:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ sed 's/Dark/Blue/g' isophya.csv
+IST06	Blue	450	-0.94	65.9
+IST06	Blue	450	-0.94	65.9
+PLVYL	Blue	850	-0.77	73.7
+PLVYL	Blue	850	-0.77	73.7
+IST13	Blue	1000	-0.86	75.66
+IST13	Blue	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+### UNIQ
+
+`uniq` stands for `unique` and its job is to `remove duplicate lines` from the data. However, it only works if `duplicate lines are adjacent` (i.e. one after the other). Sometimes this is not the case, but this can be fixed by `sorting first` and using `uniq` (we will later see how we can use several commands sequentially via piping).
+
+Let’s say we want to learn how many unique populations we have in our file. For this we simply use the below command.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ uniq isophya.csv
+IST06	Dark	450	-0.94	65.9
+PLVYL	Dark	850	-0.77	73.7
+IST13	Dark	1000	-0.86	75.66
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+CKLYU	Pale	2300	0.00	75.81
+```
+
+Like many of the other commands `uniq` also has options. For example, one of the most useful ones is `-c` (count). When we use `uniq` together with the `-c` option, the output will display `how many times each unique item appears` in the file. Let's use the same example as above and see how our output differs.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ uniq -c isophya.csv
+      2 IST06	Dark	450	-0.94	65.9
+      2 PLVYL	Dark	850	-0.77	73.7
+      2 IST13	Dark	1000	-0.86	75.66
+      1 PIKNK	Pale	1300	0.58	78
+      1 VRCNK	Pale	2000	0.81	76.92
+      3 KALEK	Pale	2100	0.05	76.74
+      3 CKLYU	Pale	2300	0.00	75.81
+```
+
+### GREP & REGULAR EXPRESSIONS
+
+`grep` is a command that will `search` a given file and `print every line` which `contains a given pattern`. In many ways `searching for patterns is the core concept` of bioinformatics so `grep` is one of the, if not the most used, command in a bioinformaticians arsenal. Below are some examples of how grep works.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep PIKNK isophya.csv
+PIKNK	Pale	1300	0.58	78
+mbge411@login02:~/ls week01_tutorial/filters$ grep CKLYU isophya.csv 
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+On its own `grep` might not look all that impressive. But when this simple command is combined with the concept of `regular expressions` (re’s) it becomes something very very powerful. So what are `regular expressions`? Regular expressions are similar to `wildcards` and allow us to create complex patterns. A detailed `regular expression` tutorial is out of the scope of this introductory text but there are some great online sources like [this](https://ryanstutorials.net/regular-expressions-tutorial/).
+
+Below is a list of the basic building blocks of `regular expressions`, followed by a few examples of their usage with `grep` so you have some basic idea of how they can be used.
+
+- `. (dot)` -> a single character.
+- `?` -> the preceding character matches 0 or 1 times only.
+- `*` -> the preceding character matches 0 or more times.
+- `+` -> the preceding character matches 1 or more times.
+- `{n}` -> the preceding character matches exactly n times.
+- `{n,m}` -> the preceding character matches at least n times and not more than m times.
+- `[agd]` -> the character is one of those included within the square brackets.
+- `[^agd]` -> the character is not one of those included within the square brackets.
+- `[c-f]` -> the dash within the square brackets operates as a range. In this case it means either the letters c, d, e or f.
+- `( )` -> allows us to group several characters to behave as one.
+- `| (pipe symbol)` -> the logical OR operation.
+- `g` -> matches the beginning of the line.
+- `$` -> matches the end of the line.
+
+Let’s say we want to identify each line that `starts with K`. In the command below we use `^` to designate that the pattern we are searching should be at the `beginning of a line`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep '^K' isophya.csv
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+```
+
+Now let’s do the reverse and search for `lines that end` with the number `2`. Here we will use `$` to designate that the pattern we are searching for should be at the `end of the line`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep '2$' isophya.csv
+VRCNK	Pale	2000	0.81	76.92
+```
+
+How about searching for `any lines` that have the number `4` but the number should be `followed by one or more characters`. Here we use `.` to indicate that there should be `a pattern (any pattern)` directly preceding the number 4 and `+` as a `multiplier`. Note that we also use an argument `-E` to tell `grep` that we will be using `extended regular expressions`. At first it might be confusing to know when or when not to use the `-E` flag when working with `regular expressions` so a useful behavior at first is to always use `-E`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep -E '4.+' isophya.csv
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+```
+
+Now let us search for `all occurrences` of the number `6` where it is `repeated twice`. Here we use the multiplier `{2}` to indicate that the character we are searching for should be `repeated twice`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep -E '6{2}' isophya.csv
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+```
+
+Now let us search for `any line` that has the `pattern IST or KAL`. Here we use `|` to designate `or`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep -E 'IST|KAL' isophya.csv
+IST06	Dark	450	-0.94	65.9
+IST06	Dark	450	-0.94	65.9
+IST13	Dark	1000	-0.86	75.66
+IST13	Dark	1000	-0.86	75.66
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+```
+
+Lastly let us search for `all lines` that have a population `beginning` with `letters from J to Z`. 
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep -E '^[J-Z]' isophya.csv 
+PLVYL	Dark	850	-0.77	73.7
+PLVYL	Dark	850	-0.77	73.7
+PIKNK	Pale	1300	0.58	78
+VRCNK	Pale	2000	0.81	76.92
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+KALEK	Pale	2100	0.05	76.74
+```
+
+### PIPING & REDIRECTING
+
+Uptill now we have seen a lot of different commands we can use in `Unix/Linux` to manipulate data. However, one of the most powerful features of `Unix/Linux` is that we can join different commands together to do even more powerful stuff. What we essentially do is take the `output` of one command and use it as `input` in another command and we can extend this process until achieving our goal, no matter how many different commands we might need. This process is known as `piping` and coming up with analysis pathways that use multiple commands or programs to manipulate or analyze data are called `pipelines`.
+
+To understand how to build a `pipeline` we must understand a bit about how `Unix/Linux` commands behave. Every command or program we run on the command line has three data streams connected with it.
+
+- `STDIN (0)` -> Standard input (data fed into the program)
+- `STDOUT (1)` -> Standard output (data printed by the program, defaults to the terminal)
+- `STDERR (2)` -> Standard error (for error messages, also defaults to the terminal)
+
+Once we execute a command or run a program, the output will appear on our screen. This might be suitable for some instances but most of the time we would like to `save` or `write` our output to a separate file. To do this we can use the greater than symbol `>` which takes the `STDOUT` of the command or program and `saves` or `writes` it into a file which we designated.
+
+For example let us `list` the contents of our directory:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ ls *
+isophya2.csv  isophya.csv  myfile.txt  mylongfile.txt  uarctos.metadata
+```
+
+Now instead of listing the contents on the screen let us `write` it to a file called `listoutput`
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ ls * > listoutput
+mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+isophya2.csv
+isophya.csv
+myfile.txt
+mylongfile.txt
+uarctos.metadata
+```
+
+If we `write` to a file which does not exist, it will be created automatically for us. If we `save` into a file which already exists, however, then it's contents will be `overwritten` by the new output. Here is an example:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ wc -l isophya.csv > listoutput 
+mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+14 isophya.csv
+```
+
+As you can see all of the previous content of `listoutput` has now been `replaced` by the output of the new command (i.e. the number of lines in isophya.csv)
+
+To avoid erasing valuable output we can either write to a separate file each time or we can get the new data to be `appended` (added) onto the same file using the double greater than symbol `>>`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+14 isophya.csv
+mbge411@login02:~/week01_tutorial/filters$ ls * >> listoutput 
+mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+14 isophya.csv
+isophya2.csv
+isophya.csv
+listoutput
+myfile.txt
+mylongfile.txt
+uarctos.metadata
+```
+
+So far we have looked at ways to `write` data into files. Now we will look at `piping`, which is a way of `sending data from one command to the next`. For this we will use the symbol `|` which feeds the `output` of the command on the `left` as `input` to the command on the `right`.
+
+In the example below we will `list` all the contents of our directory using the command `ls` and then display only the first 3 contents using the command `head`.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ ls * | head -3 
+isophya2.csv
+isophya.csv
+listoutput
+```
+
+We can extend this as long as we want. For example, we can list all contents our directory, then get the first 3 and then get the last item on the reduced list of three items:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ ls * | head -3 | tail -1 
+listoutput
+```
+
+`Piping` is an effective tool for getting quick answers about our data. For example, let's say I want to know how many `Pale` individuals are in the file `isophya.csv`. I can answer this question with a simple command like below.
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep Pale isophya.csv | wc -l 
+8
+```
+
+If I want to `write` the answer to a `file` instead of on the screen, then I can add an additional step and save it to a file:
+
+```Bash
+mbge411@login02:~/week01_tutorial/filters$ grep Pale isophya.csv | wc -l > count.pale
+mbge411@login02:~/week01_tutorial/filters$ cat count.pale 
+8
+```
+
+### AWK
+
+`Awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into it here. The things you can do with `awk` are limitless and I will leave it up to you to discover. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
+
+
+### THE END
+
+Congratulations you have reached the end of your first `Unix/Linux` tutorial!! Be warned that you have only scratched the surface of what you can do with this very powerful system. I have intentionally left some things out  because a good portion of learning the `Unix/Linux` and the `Bash` environment is going `online` and finding solutions to your problems. There are many online sources like [Stackoverflow](https://stackoverflow.com/) or the Unix and Linux [Forums](https://www.unix.com/), and you should make a habit of checking them out regularly. 
+
+A good friend once told me `to be a good coder you only need to know how to ask google the right questions`.
+
+Now that you have reached the end of this tutorial, see if you can complete some of the challenges in this week's homework. Be warned not all answers have been covered here, so happy hunting!!!
+
+
+
+
+
+
 
