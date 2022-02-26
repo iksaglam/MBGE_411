@@ -25,7 +25,7 @@
   - [wc](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#wc)
   - [cut](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#cut)
   - [uniq](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#uniq)
-- [Sed](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#sed)
+- [sed](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#sed)
 - [Grep & Regular Expressions](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#grep--regular-expressions)
 - [Piping & redirecting](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#piping--redirecting)
 - [awk](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#awk)
