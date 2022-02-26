@@ -1,5 +1,5 @@
 
-# Introduction to Linux and Bash 
+# Introduction to Unix and Bash 
 
 - [Opening a Terminal](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#opening-a-terminal)
 - [Connect to a server using SSH](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#connect-to-a-server-using-ssh)
