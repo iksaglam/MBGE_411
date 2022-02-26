@@ -38,7 +38,7 @@ Opening a terminal is easy but will differ from system to system. Below are a fe
 
 - On a Linux machine you will find it in `Applications -> System or Applications -> Utilities`.
 - On a Mac you will find it under `Applications -> Utilities`.
-- On a Windows machine the terminal is called a command prompt and you can find this under `Start -> Program Files -> Accessories -> Command Prompt`. However, Windows does not have a native bash shell so in Windows 10 you will need to separately install [Bash](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10) or if you are using an older version of windows you will need to install an external SSH client. [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) or [Cygwin](https://cygwin.com/install.html) are rather good ones.
+- On a Windows machine the terminal is called a command prompt and you can find this under `Start -> Program Files -> Accessories -> Command Prompt`. However, Windows does not have a native bash shell so in Windows 10 and 11 you will have to install a Linux terminal separately. See instructions [here](https://webme.ie/how-to-install-ubuntu-terminal-for-windows-10/#:~:text=Ubuntu%20on%20Windows%20allows%20you,apt%20and%20more%20on%20Windows.&text=First%20you%20need%20to%20enable,panel%20and%20click%20on%20Programs.&text=Then%20check%20the%20box%20for%20Windows%20Subsystem%20for%20Linux%20and%20click%20ok.) or [here](https://www.windowscentral.com/how-install-bash-shell-command-line-windows-10). If you are using an older version of windows you will need to install an external SSH client. [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) or [Cygwin](https://cygwin.com/install.html) are rather good ones.
 
 ## Connect to a server using SSH
 
@@ -924,7 +924,7 @@ mbge411@login02:~/week01_tutorial/filters$ cat count.pale
 
 ## THE END
 
-Congratulations you have reached the end of your first `Unix/Linux` tutorial!! Be warned that you have only scratched the surface of what you can do with this very powerful system. I have intentionally left some things out  because a good portion of learning the `Unix/Linux` and the `Bash` environment is going `online` and finding solutions to your problems. There are many online sources like [Stackoverflow](https://stackoverflow.com/) or the Unix and Linux [Forums](https://www.unix.com/), and you should make a habit of checking them out regularly. 
+Congratulations you have reached the end of your first `Unix/Linux` tutorial!! Be warned that you have only scratched the surface of what you can do with this very powerful system. I have intentionally left some things out  because a good portion of learning the `Unix/Linux` and the `Bash` environment is going `online` and finding solutions to your problems. There are many online sources like [Stackoverflow](https://stackoverflow.com/), the Unix and Linux [Forums](https://www.unix.com/), or [explainshell](https://explainshell.com/) and you should make a habit of checking them out regularly. 
 
 A good friend once told me `to be a good coder you only need to know how to ask google the right questions`.
 
