@@ -919,7 +919,7 @@ mbge411@login02:~/week01_tutorial/filters$ cat count.pale
 
 ## awk
 
-`Awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into it here. The things you can do with `awk` are limitless and I will leave it up to you to discover. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
+`awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into it here. The things you can do with `awk` are limitless and I will leave it up to you to discover. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
 
 
 ## THE END
