@@ -1,6 +1,37 @@
 
 # Introduction to Linux and Bash 
 
+- [Opening a Terminal](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#opening-a-terminal)
+- [Connect to a server using SSH](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#connect-to-a-server-using-ssh)
+- [The Shell: Bash](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#the-shell-bash)
+- [Navigating the Shell]()
+  - [Where are we?](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#navigating-the-shell-where-are-we)
+  - [What is in our directory?](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#navigating-the-shell-what-is-in-our-directory)
+  - [Paths](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#navigating-the-shell-paths)
+  - [Moving around](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#navigating-the-shell-moving-around)
+- [File Manipulation]()
+  - [Making a directory](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#file-manipulation-making-a-directory)
+  - [Removing a Directory](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#file-manipulation-removing-a-directory)
+  - [Creating a Blank File](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#file-manipulation-creating-a-blank-file)
+  - [Copying a File or Directory](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#file-manipulation-copying-a-file-or-directory)
+  - [Moving a File or Directory](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#file-manipulation-moving-a-file-or-directory)
+  - [Removing a file](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#file-manipulation-removing-a-file)
+- [Wildcards](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#wildcards)
+- [Viewing and editing files](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#viewing-and-editing-files)
+- [Filters](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#filters)
+  - [Head](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#head)
+  - [Tail](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#tail)
+  - [Sort](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#sort)
+  - [wc](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#wc)
+  - [cut](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#cut)
+  - [uniq](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#uniq)
+- [Sed](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#sed)
+- [Grep & Regular Expressions](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#grep--regular-expressions)
+- [Piping & redirecting](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#piping--redirecting)
+- [awk](https://github.com/iksaglam/MBGE_411/blob/main/Files/Unix_Bash.md#awk)
+
+#
+
 ### Opening a Terminal
 
 Opening a terminal is easy but will differ from system to system. Below are a few places to start looking depending on which system you are on.
@@ -29,7 +60,7 @@ Ap9r3LqVVm
 Notice that as you type, none of the characters will be displayed on the screen. This is normal so be very careful to type correctly.
 
 
-### The Shell, Bash
+### The Shell: Bash
 
 Once logged in (or connected) to our remote server we will be greeted by the shell interface. This is a part of the operating system that defines how you will interact with your computer and how it will behave and look after running (or executing) commands. There are various shells available but the most common and the one linux computers (such as our remote server) uses is called bash which stands for Bourne again shell. 
 
