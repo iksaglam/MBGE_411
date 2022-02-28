@@ -919,7 +919,76 @@ mbge411@login02:~/week01_tutorial/filters$ cat count.pale
 
 ## awk
 
-`awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into it here. The things you can do with `awk` are limitless and I will leave it up to you to discover. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
+`awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into all of it here. The things you can do with `awk` are limitless and I will only give a few example to get you stared and leave it up to you to discover the rest. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
+
+On of the most basic thing we can do with awk is to print a specific column or columns. For example we may wish to print only the 1st and 3rd columns in our isophya.csv file.
+
+```Bash
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk '{print $1, $3}' isophya.csv
+IST06 450
+IST06 450
+PLVYL 850
+PLVYL 850
+IST13 1000
+IST13 1000
+PIKNK 1300
+VRCNK 2000
+KALEK 2100
+KALEK 2100
+KALEK 2100
+CKLYU 2300
+CKLYU 2300
+CKLYU 2300
+```
+
+We can also print in any order we want
+
+```Bash
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk '{print $3, $1}' isophya.csv
+450 IST06
+450 IST06
+850 PLVYL
+850 PLVYL
+1000 IST13
+1000 IST13
+1300 PIKNK
+2000 VRCNK
+2100 KALEK
+2100 KALEK
+2100 KALEK
+2300 CKLYU
+2300 CKLYU
+2300 CKLYU
+```
+
+We can also do simple calculations between columns using awk. For example let us say we want to divide the 3rd column in isophya.csv with the 5th column and print this as a new variable. 
+
+```Bash
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk 'c=$5/$3 {print c}' isophya.csv
+0.146444
+0.146444
+0.0867059
+0.0867059
+0.07566
+0.07566
+0.06
+0.03846
+0.0365429
+0.0365429
+0.0365429
+0.0329609
+0.0329609
+0.0329609
+```
+
+awk can also be used to filter our dataframe according to certain values. For example we might want to only work with populations that are found above 1000 meters and in environments where humidity is lower than 76%.
+
+```Bash
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk '$3>1000 && $5<76' isophya.csv
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
 
 
 ## THE END
