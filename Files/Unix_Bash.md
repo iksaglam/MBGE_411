@@ -1034,7 +1034,7 @@ CKLYU	Pale	2300	0.00	75.81	0.0329609
 
 ## THE END
 
-Congratulations you have reached the end of your first `Unix/Linux` tutorial!! Be warned that you have only scratched the surface of what you can do with this very powerful system. I have intentionally left some things out  because a good portion of learning the `Unix/Linux` and the `Bash` environment is going `online` and finding solutions to your problems. There are many online sources like [Stackoverflow](https://stackoverflow.com/), the Unix and Linux [Forums](https://www.unix.com/), or [explainshell](https://explainshell.com/) and you should make a habit of checking them out regularly. 
+Congratulations you have reached the end of your first `Unix/Linux` tutorial!! Be warned that you have only scratched the surface of what you can do with this very powerful system. I have intentionally left some things out like the `paste` command above, because a good portion of learning the `Unix/Linux` and the `Bash` environment is going `online` and finding solutions to your problems. There are many online sources like [Stackoverflow](https://stackoverflow.com/), the Unix and Linux [Forums](https://www.unix.com/), or [explainshell](https://explainshell.com/) and you should make a habit of checking them out regularly. 
 
 A good friend once told me `to be a good coder you only need to know how to ask google the right questions`.
 
