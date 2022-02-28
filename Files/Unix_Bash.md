@@ -921,7 +921,7 @@ mbge411@login02:~/week01_tutorial/filters$ cat count.pale
 
 `awk` is a `comprehensive programming language` for text-processing on `Unix/Linux` and is the cornerstone of `Unix/Linux` shell programming. Unfortunately we do not have time to go into all of it here. The things you can do with `awk` are limitless and I will only give a few example to get you stared and leave it up to you to discover the rest. An introductory tutorial can be found [here](https://likegeeks.com/awk-command/).
 
-On of the most basic thing we can do with awk is to print a specific column or columns. For example we may wish to print only the 1st and 3rd columns in our isophya.csv file.
+On of the most basic thing we can do with `awk` is to `print` a specific column or columns. For example we may wish to print only the `1st` and `3rd columns` in our `isophya.csv` file.
 
 ```Bash
 mbge411@login03:~/course_content/week01_tutorial/filters$ awk '{print $1, $3}' isophya.csv
@@ -961,7 +961,16 @@ mbge411@login03:~/course_content/week01_tutorial/filters$ awk '{print $3, $1}' i
 2300 CKLYU
 ```
 
-We can also do simple calculations between columns using awk. For example let us say we want to divide the 3rd column in isophya.csv with the 5th column and print this as a new variable. 
+`awk` can also be used to filter our dataframe according to certain values. For example we might want to only work with populations that are found `above 1000 meters` and in environments where `humidity` is lower than 76%`.
+
+```Bash
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk '$3>1000 && $5<76' isophya.csv
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+CKLYU	Pale	2300	0.00	75.81
+```
+
+We can also do simple calculations between columns using `awk`. For example let us say we want to divide the `3rd column` in `isophya.csv` with the `5th column` and print this as a new variable. 
 
 ```Bash
 mbge411@login03:~/course_content/week01_tutorial/filters$ awk 'c=$5/$3 {print c}' isophya.csv
@@ -981,15 +990,47 @@ mbge411@login03:~/course_content/week01_tutorial/filters$ awk 'c=$5/$3 {print c}
 0.0329609
 ```
 
-awk can also be used to filter our dataframe according to certain values. For example we might want to only work with populations that are found above 1000 meters and in environments where humidity is lower than 76%.
+If we want we can also append this new variable into our dataframe by using the `paste` command together with the `standard output` indicator `-`
 
 ```Bash
-mbge411@login03:~/course_content/week01_tutorial/filters$ awk '$3>1000 && $5<76' isophya.csv
-CKLYU	Pale	2300	0.00	75.81
-CKLYU	Pale	2300	0.00	75.81
-CKLYU	Pale	2300	0.00	75.81
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk 'c=$5/$3 {print c}' isophya.csv | paste isophya.csv -
+IST06	Dark	450	-0.94	65.9	0.146444
+IST06	Dark	450	-0.94	65.9	0.146444
+PLVYL	Dark	850	-0.77	73.7	0.0867059
+PLVYL	Dark	850	-0.77	73.7	0.0867059
+IST13	Dark	1000	-0.86	75.66	0.07566
+IST13	Dark	1000	-0.86	75.66	0.07566
+PIKNK	Pale	1300	0.58	78	0.06
+VRCNK	Pale	2000	0.81	76.92	0.03846
+KALEK	Pale	2100	0.05	76.74	0.0365429
+KALEK	Pale	2100	0.05	76.74	0.0365429
+KALEK	Pale	2100	0.05	76.74	0.0365429
+CKLYU	Pale	2300	0.00	75.81	0.0329609
+CKLYU	Pale	2300	0.00	75.81	0.0329609
+CKLYU	Pale	2300	0.00	75.81	0.0329609
 ```
 
+Instead of writing to the screen we can of course write this into a new dataframe `isophya2.csv` and even add a header using `sed`.
+
+```Bash
+mbge411@login03:~/course_content/week01_tutorial/filters$ awk 'c=$5/$3 {print c}' isophya.csv | paste isophya.csv - | sed 1i'Pop\tColor\tAlt\tBS\tHum\tnew' > isophya2.csv 
+mbge411@login03:~/course_content/week01_tutorial/filters$ cat isophya2.csv 
+Pop	Color	Alt	BS	Hum	new
+IST06	Dark	450	-0.94	65.9	0.146444
+IST06	Dark	450	-0.94	65.9	0.146444
+PLVYL	Dark	850	-0.77	73.7	0.0867059
+PLVYL	Dark	850	-0.77	73.7	0.0867059
+IST13	Dark	1000	-0.86	75.66	0.07566
+IST13	Dark	1000	-0.86	75.66	0.07566
+PIKNK	Pale	1300	0.58	78	0.06
+VRCNK	Pale	2000	0.81	76.92	0.03846
+KALEK	Pale	2100	0.05	76.74	0.0365429
+KALEK	Pale	2100	0.05	76.74	0.0365429
+KALEK	Pale	2100	0.05	76.74	0.0365429
+CKLYU	Pale	2300	0.00	75.81	0.0329609
+CKLYU	Pale	2300	0.00	75.81	0.0329609
+CKLYU	Pale	2300	0.00	75.81	0.0329609
+```
 
 ## THE END
 
