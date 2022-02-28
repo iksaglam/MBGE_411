@@ -91,7 +91,7 @@ Once we know where we are the next thing we will want to do is list the contents
 
 ```Bash
 mbge411@login02:~$ ls
-bin  course_content  scripts  Spring2021
+bin  course_content  scripts  users
 ```
 
 Whereas pwd just ran by itself, ls is a bit more powerful and can run with arguments which enable us to see more details concerning our files. For example lets run `ls` with the argument `-l`.
@@ -99,11 +99,10 @@ Whereas pwd just ran by itself, ls is a bit more powerful and can run with argum
 ```Bash
 mbge411@login02:~$ ls -l
 total 2
-drwxr-s--- 10 mbge411 gde  9 May 14  2019 bin
-drwxr-s---  2 mbge411 gde  0 Feb 12  2019 scripts
-drwxr-sr-x 14 mbge411 gde 12 Jan 31 16:40 Spring2019
-drwxr-sr-x  2 mbge411 gde  0 Jan 31 16:55 Spring2020
-drwxr-sr-x  4 mbge411 gde  2 Jan 31 16:37 week01_tutorial
+drwxr-sr-x 10 mbge411 gde   9 Feb 28 15:11 bin
+drwxr-sr-x  3 mbge411 gde   1 Feb 28 15:09 course_content
+drwxr-s---  2 mbge411 gde 130 Feb 28 20:29 scripts
+drwxr-sr-x  2 mbge411 gde   0 Feb 28 20:51 users
 ```
 
 
@@ -141,11 +140,13 @@ It should be obvious by now that we can refer to a specific location in multiple
 ```Bash
 mbge411@login02:~$ pwd
 /kuacc/users/mbge411
-mbge411@login02:~$ ls ~/week01_tutorial
-filters  wildcards
-mbge411@login02:~$ ls ./week01_tutorial
-filters  wildcards
-mbge411@login02:~$ ls /kuacc/users/mbge411/week01_tutorial
+mbge411@login02:~$ ls ~/course_content/
+week01_tutorial
+mbge411@login02:~$ ls ./course_content/
+week01_tutorial
+mbge411@login02:~$ ls /kuacc/users/mbge411/course_content
+week01_tutorial
+mbge411@login02:~$ ls course_content/week01_tutorial/
 filters  wildcards
 mbge411@login02:~$ ls ../../
 admin  ALU_LEFT  bashconfig  images  kuacc  users
@@ -164,12 +165,12 @@ If you do not specify a path and just type `cd` on your terminal, no matter wher
 ```Bash
 mbge411@login02:~$ pwd
 /kuacc/users/mbge411
-mbge411@login02:~$ ls 
-bin  scripts  Spring2019  Spring2020  week01_tutorial
-mbge411@login02:~$ cd week01_tutorial
-mbge411@login02:~/week01_tutorial$ ls
+mbge411@login02:~$ ls
+bin  course_content  scripts  users
+mbge411@login02:~$ cd course_content/week01_tutorial
+mbge411@login02:~/course_content/week01_tutorial$ ls
 filters  wildcards
-mbge411@login02:~/week01_tutorial$ cd ~/bin
+mbge411@login02:~/course_content/week01_tutorial$ cd ~/bin
 mbge411@login02:~/bin$ ls
 FastQC  fastx-toolkit  gffcompare-0.10.6.Linux_x86_64 ...
 mbge411@login02:~/bin$ cd ../../../
@@ -177,7 +178,7 @@ mbge411@login02:/kuacc$ ls
 apps  etc  jobscripts  kadmin  users
 mbge411@login02:/kuacc$ cd
 mbge411@login02:~$ ls
-bin  scripts  Spring2019  Spring2020  week01_tutorial
+bin  course_content  scripts  users
 ```
 ## File Manipulation
 ### File Manipulation: Making a directory
@@ -186,10 +187,10 @@ Creating a directory is pretty easy. The command we use is `mkdir` which stands 
 
 ```Bash
 mbge411@login02:~$ ls 
-bin  scripts  Spring2019  Spring2020  week01_tutorial
+bin  course_content  scripts  users
 mbge411@login02:~$ mkdir ismail
 mbge411@login02:~$ ls
-bin  ismail  scripts  Spring2019  Spring2020  week01_tutorial
+bin  course_content  ismail  scripts  users
 ```
 
 ### File Manipulation: Removing a Directory
@@ -296,59 +297,59 @@ This is where wildcards come in. Wildcards are a set of symbols that allow you t
 Let us start with the wildcard you will use most, `*`. In the examples below we will `list` everything beginning with `e`.
 
 ```Bash
-mbge411@login02:~$ cd week01_tutorial/wildcards
-mbge411@login02:~/week01_tutorial/wildcards$ ls
+mbge411@login02:~$ cd course_content/week01_tutorial/wildcards
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls
 example1.txt example2.txt example3.txt example4.txt example5.txt foo1.jpg foo2.jpg foo3.jpg foo4.jpg gmail1.thml gmail2.html gmail3.html 
-mbge411@login02:~/week01_tutorial/wildcards$ ls e*
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls e*
 example1.txt example2.txt example3.txt example4.txt example5.txt
 ```
 
 We can use `*` in a number of other ways. For example, let us use this wildcard to list only image `jpg` files.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls *.jpg
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls *.jpg
 foo1.jpg foo2.jpg foo3.jpg foo4.jpg
 ```
 
 Or to list all files containing the letter `m`:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls *m*
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls *m*
 example1.txt example2.txt example3.txt example4.txt example5.txt gmail1.thml gmail2.html gmail3.html
 ```
 
 Now let us look at how we can use the wildcard `?`. In the example below we wish to list all `foo` files.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls foo?.jpg
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls foo?.jpg
 foo1.jpg foo2.jpg foo3.jpg foo4.jpg
 ```
 
 We can also use wildcards together to come up with even more detailed filters. For example, let us list all files that have three letter extensions.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls *.???
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls *.???
 example1.txt example2.txt example3.txt example4.txt example5.txt foo1.jpg foo2.jpg foo3.jpg foo4.jpg
 ```
 
 Or let us list only those files whose third letter is “a”
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls ??a*
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls ??a*
 example1.txt example2.txt example3.txt example4.txt example5.txt gmail1.thml gmail2.html gmail3.html
 ```
 
 Finally let us introduce the range `[ ]` operator. This operator allows you to limit your calls to a certain subset of characters. For example let us list all files that either begin with an `e` or `g`
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls [eg]*
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls [eg]*
 example1.txt example2.txt example3.txt example4.txt example5.txt gmail1.thml gmail2.html gmail3.html
 ```
 
 Or let us list all files that contain numbers between `1` and `3`:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/wildcards$ ls *[1-3]*
+mbge411@login02:~/course_content/week01_tutorial/wildcards$ ls *[1-3]*
 example1.txt example2.txt example3.txt foo1.jpg foo2.jpg foo3.jpg gmail1.thml gmail2.html gmail3.html
 ```
 
@@ -440,10 +441,10 @@ We will introduce the usage of these commands by direct example and manipulation
 Before moving on to specific commands let us first view our example file using the `cat` command.
 
 ```Bash
-mbge411@login02:~$ cd week01_tutorial/filters/
-mbge411@login02:~/week01_tutorial/filters$ ls
+mbge411@login02:~$ cd course_content/week01_tutorial/filters/
+mbge411@login02:~/course_content/week01_tutorial/filters$ ls
 isophya.csv uarctos.metadata
-mbge411@login02:~/week01_tutorial/filters$ cat isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ cat isophya.csv
 IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 PLVYL	Dark	850	-0.77	73.7
@@ -464,7 +465,7 @@ CKLYU	Pale	2300	0.00	75.81
 `Head` is a command that prints out a certain number of lines of a given file. The default number of lines is 10, but we can modify this number using the option `-n`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ head isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ head isophya.csv
 IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 PLVYL	Dark	850	-0.77	73.7
@@ -478,7 +479,7 @@ KALEK	Pale	2100	0.05	76.74
 ```
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ head -n 6 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ head -n 6 isophya.csv
 IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 PLVYL	Dark	850	-0.77	73.7
@@ -492,7 +493,7 @@ IST13	Dark	1000	-0.86	75.66
 `Tail` is the opposite of head and prints out the last certain number of lines of a given file. Default number of lines is 10, but we can modify this number using the option `-n`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ tail isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ tail isophya.csv
 IST13	Dark	1000	-0.86	75.66
 IST13	Dark	1000	-0.86	75.66
 PIKNK	Pale	1300	0.58	78
@@ -506,7 +507,7 @@ CKLYU	Pale	2300	0.00	75.81
 ```
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ tail -n 3 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ tail -n 3 isophya.csv
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
@@ -515,7 +516,7 @@ CKLYU	Pale	2300	0.00	75.81
 You can also do reverse filtering using `tail`. For example, if we wanted to filter out the first 2 lines of our file we could use the following command:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ tail -n +3 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ tail -n +3 isophya.csv
 PLVYL	Dark	850	-0.77	73.7
 PLVYL	Dark	850	-0.77	73.7
 IST13	Dark	1000	-0.86	75.66
@@ -537,7 +538,7 @@ Here we are essentially telling our file to start printing from the top 3rd line
 `Sort`, does exactly what it says and sorts files. The command by default will `sort alphabetically` and use the first column. But there are many options to modify the sorting process as we will see below.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ sort isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ sort isophya.csv
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
@@ -557,7 +558,7 @@ VRCNK	Pale	2000	0.81	76.92
 We can also `sort` using any column by designating the desired column with the `-k` option. For example if we want to sort by column 3:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ sort -k3 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ sort -k3 isophya.csv
 IST13	Dark	1000	-0.86	75.66
 IST13	Dark	1000	-0.86	75.66
 PIKNK	Pale	1300	0.58	78
@@ -577,7 +578,7 @@ PLVYL	Dark	850	-0.77	73.7
 Notice above that the `-k3` option sorted our file `alphabetically`. However, since column three is numeric `sorting numerically` would make more sense. We can do this by using the `-n` option.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ sort -nk3 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ sort -nk3 isophya.csv
 IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 PLVYL	Dark	850	-0.77	73.7
@@ -597,7 +598,7 @@ CKLYU	Pale	2300	0.00	75.81
 Lastly, perhaps we want to `sort` in the `reverse order` (i.e. from high to low). We can do this by introducing the `-r` option.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ sort -rnk3 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ sort -rnk3 isophya.csv
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
@@ -619,19 +620,19 @@ IST06	Dark	450	-0.94	65.9
 `wc`, stands for word count and as the name suggests this command counts words. The default output of this command returns the `number of lines, words and characters` (in that order). If we want to restrict the command to only count `words`, `characters` or `lines` then we can specify this as options.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ wc isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ wc isophya.csv
 14 70 373 isophya.csv 
 ```
 
 Sometimes you want to count only lines `-l`, or words `-w` or characters `-m` or a combination of the two.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ wc -l isophya.csv 
+mbge411@login02:~/course_content/week01_tutorial/filters$ wc -l isophya.csv 
 14 isophya.csv
 ```
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ wc -wm isophya.csv 
+mbge411@login02:~/course_content/week01_tutorial/filters$ wc -wm isophya.csv 
 70 373 isophya.csv
 ```
 
@@ -642,7 +643,7 @@ Usually we work with files that are separated into fields or columns and sometim
 In our sample file we have 5 columns (or fields): `population`, `color`, `altitude`, `body size index` and `humidity`. Let us say we only want to view the `color column`. We can use the following command to achive this.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ cut -f2 isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ cut -f2 isophya.csv
 Dark
 Dark
 Dark
@@ -662,7 +663,7 @@ Pale
 `cut` by default uses the `TAB` character as `field separator`. However, our files might use other separators such as `,` or `space`. For these cases we can specify the separator using the `-d` option. For example, for a file where columns are separated by `spaces` if we wanted to extract `columns 3 and 5` we would use the following command:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ cut -d' ' -f3,5 isophya2.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ cut -d' ' -f3,5 isophya2.csv
 450 65.9
 450 65.9
 850 73.7
@@ -686,7 +687,7 @@ mbge411@login02:~/week01_tutorial/filters$ cut -d' ' -f3,5 isophya2.csv
 Let’s say we want to learn how many unique populations we have in our file. For this we simply use the below command.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ uniq isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ uniq isophya.csv
 IST06	Dark	450	-0.94	65.9
 PLVYL	Dark	850	-0.77	73.7
 IST13	Dark	1000	-0.86	75.66
@@ -699,7 +700,7 @@ CKLYU	Pale	2300	0.00	75.81
 Like many of the other commands `uniq` also has options. For example, one of the most useful ones is `-c` (count). When we use `uniq` together with the `-c` option, the output will display `how many times each unique item appears` in the file. Let's use the same example as above and see how our output differs.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ uniq -c isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ uniq -c isophya.csv
       2 IST06	Dark	450	-0.94	65.9
       2 PLVYL	Dark	850	-0.77	73.7
       2 IST13	Dark	1000	-0.86	75.66
@@ -720,7 +721,7 @@ The initial `s` stands for `substitute` and designates the action to be performe
 To give an example let us `replace` all instances of `dark` with `blue`:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ sed 's/Dark/Blue/g' isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ sed 's/Dark/Blue/g' isophya.csv
 IST06	Blue	450	-0.94	65.9
 IST06	Blue	450	-0.94	65.9
 PLVYL	Blue	850	-0.77	73.7
@@ -743,9 +744,9 @@ CKLYU	Pale	2300	0.00	75.81
 `grep` is a command that will `search` a given file and `print every line` which `contains a given pattern`. In many ways `searching for patterns is the core concept` of bioinformatics so `grep` is one of the, if not the most used, command in a bioinformaticians arsenal. Below are some examples of how grep works.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep PIKNK isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep PIKNK isophya.csv
 PIKNK	Pale	1300	0.58	78
-mbge411@login02:~/ls week01_tutorial/filters$ grep CKLYU isophya.csv 
+mbge411@login02:~/week01_tutorial/filters$ grep CKLYU isophya.csv 
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
 CKLYU	Pale	2300	0.00	75.81
@@ -772,7 +773,7 @@ Below is a list of the basic building blocks of `regular expressions`, followed 
 Let’s say we want to identify each line that `starts with K`. In the command below we use `^` to designate that the pattern we are searching should be at the `beginning of a line`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep '^K' isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep '^K' isophya.csv
 KALEK	Pale	2100	0.05	76.74
 KALEK	Pale	2100	0.05	76.74
 KALEK	Pale	2100	0.05	76.74
@@ -781,14 +782,14 @@ KALEK	Pale	2100	0.05	76.74
 Now let’s do the reverse and search for `lines that end` with the number `2`. Here we will use `$` to designate that the pattern we are searching for should be at the `end of the line`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep '2$' isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep '2$' isophya.csv
 VRCNK	Pale	2000	0.81	76.92
 ```
 
 How about searching for `any lines` that have the number `4` but the number should be `followed by one or more characters`. Here we use `.` to indicate that there should be `a pattern (any pattern)` directly preceding the number 4 and `+` as a `multiplier`. Note that we also use an argument `-E` to tell `grep` that we will be using `extended regular expressions`. At first it might be confusing to know when or when not to use the `-E` flag when working with `regular expressions` so a useful behavior at first is to always use `-E`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep -E '4.+' isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep -E '4.+' isophya.csv
 IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 ```
@@ -796,7 +797,7 @@ IST06	Dark	450	-0.94	65.9
 Now let us search for `all occurrences` of the number `6` where it is `repeated twice`. Here we use the multiplier `{2}` to indicate that the character we are searching for should be `repeated twice`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep -E '6{2}' isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep -E '6{2}' isophya.csv
 IST13	Dark	1000	-0.86	75.66
 IST13	Dark	1000	-0.86	75.66
 ```
@@ -804,7 +805,7 @@ IST13	Dark	1000	-0.86	75.66
 Now let us search for `any line` that has the `pattern IST or KAL`. Here we use `|` to designate `or`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep -E 'IST|KAL' isophya.csv
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep -E 'IST|KAL' isophya.csv
 IST06	Dark	450	-0.94	65.9
 IST06	Dark	450	-0.94	65.9
 IST13	Dark	1000	-0.86	75.66
@@ -817,7 +818,7 @@ KALEK	Pale	2100	0.05	76.74
 Lastly let us search for `all lines` that have a population `beginning` with `letters from J to Z`. 
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep -E '^[J-Z]' isophya.csv 
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep -E '^[J-Z]' isophya.csv 
 PLVYL	Dark	850	-0.77	73.7
 PLVYL	Dark	850	-0.77	73.7
 PIKNK	Pale	1300	0.58	78
@@ -842,15 +843,15 @@ Once we execute a command or run a program, the output will appear on our screen
 For example let us `list` the contents of our directory:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ ls *
+mbge411@login02:~/course_content/week01_tutorial/filters$ ls *
 isophya2.csv  isophya.csv  myfile.txt  mylongfile.txt  uarctos.metadata
 ```
 
 Now instead of listing the contents on the screen let us `write` it to a file called `listoutput`
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ ls * > listoutput
-mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+mbge411@login02:~/course_content/week01_tutorial/filters$ ls * > listoutput
+mbge411@login02:~/course_content/week01_tutorial/filters$ cat listoutput 
 isophya2.csv
 isophya.csv
 myfile.txt
@@ -861,8 +862,8 @@ uarctos.metadata
 If we `write` to a file which does not exist, it will be created automatically for us. If we `save` into a file which already exists, however, then it's contents will be `overwritten` by the new output. Here is an example:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ wc -l isophya.csv > listoutput 
-mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+mbge411@login02:~/course_content/week01_tutorial/filters$ wc -l isophya.csv > listoutput 
+mbge411@login02:~/course_content/week01_tutorial/filters$ cat listoutput 
 14 isophya.csv
 ```
 
@@ -871,10 +872,10 @@ As you can see all of the previous content of `listoutput` has now been `replace
 To avoid erasing valuable output we can either write to a separate file each time or we can get the new data to be `appended` (added) onto the same file using the double greater than symbol `>>`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+mbge411@login02:~/course_content/week01_tutorial/filters$ cat listoutput 
 14 isophya.csv
-mbge411@login02:~/week01_tutorial/filters$ ls * >> listoutput 
-mbge411@login02:~/week01_tutorial/filters$ cat listoutput 
+mbge411@login02:~/course_content/week01_tutorial/filters$ ls * >> listoutput 
+mbge411@login02:~/course_content/week01_tutorial/filters$ cat listoutput 
 14 isophya.csv
 isophya2.csv
 isophya.csv
@@ -889,7 +890,7 @@ So far we have looked at ways to `write` data into files. Now we will look at `p
 In the example below we will `list` all the contents of our directory using the command `ls` and then display only the first 3 contents using the command `head`.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ ls * | head -3 
+mbge411@login02:~/course_content/week01_tutorial/filters$ ls * | head -3 
 isophya2.csv
 isophya.csv
 listoutput
@@ -898,22 +899,22 @@ listoutput
 We can extend this as long as we want. For example, we can list all contents our directory, then get the first 3 and then get the last item on the reduced list of three items:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ ls * | head -3 | tail -1 
+mbge411@login02:~/course_content/week01_tutorial/filters$ ls * | head -3 | tail -1 
 listoutput
 ```
 
 `Piping` is an effective tool for getting quick answers about our data. For example, let's say I want to know how many `Pale` individuals are in the file `isophya.csv`. I can answer this question with a simple command like below.
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep Pale isophya.csv | wc -l 
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep Pale isophya.csv | wc -l 
 8
 ```
 
 If I want to `write` the answer to a `file` instead of on the screen, then I can add an additional step and save it to a file:
 
 ```Bash
-mbge411@login02:~/week01_tutorial/filters$ grep Pale isophya.csv | wc -l > count.pale
-mbge411@login02:~/week01_tutorial/filters$ cat count.pale 
+mbge411@login02:~/course_content/week01_tutorial/filters$ grep Pale isophya.csv | wc -l > count.pale
+mbge411@login02:~/course_content/week01_tutorial/filters$ cat count.pale 
 8
 ```
 
@@ -1039,10 +1040,4 @@ Congratulations you have reached the end of your first `Unix/Linux` tutorial!! B
 A good friend once told me `to be a good coder you only need to know how to ask google the right questions`.
 
 Now that you have reached the end of this tutorial, see if you can complete some of the challenges in this week's homework. Be warned not all answers have been covered here, so happy hunting!!!
-
-
-
-
-
-
 
