@@ -54,7 +54,7 @@ ssh mbge411@login.kuacc.ku.edu.tr
 The system will prompt you to enter a password for the account you are trying to connect to. Type in the below password and hit enter.
 
 ```Bash
-Ap9r3LqVVm
+GenomicsBio!
 ```
 
 Notice that as you type, none of the characters will be displayed on the screen. This is normal so be very careful to type correctly.
