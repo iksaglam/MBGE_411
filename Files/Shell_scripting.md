@@ -120,4 +120,103 @@ echo $NAME is located in $LOC
 sh personal.loc.sh  Ismail Sariyer
 Ismail is located in Sariyer
 ```
+## Example Scripts
+
+#### Script version 1
+
+Now let us write a `shell script` for a specific task. In this case we have several reference genomes within the directory `~/course_content/week02_tutorial/genome`. We want to `index` all of these genomes using the program `samtools` and from the indexed file count the number of chromosomes that are over 1 million base pairs in length.
+
+To execute this procedure for a single genome we could write a script like below:
+
+```Bash
+#!/bin/bash
+infile=$1
+filter=$2
+samtools faidx ${infile}.fa
+awk "\$2 > $filter" ${infile}.fa.fai | wc -l | sed "s/^/$infile\t/" - > count.txt
+```
+
+Here the script requires `two arguments`: the `name of the genome` and the `number of basepairs` to filter. We can execute this script for a given genome (for example `Gryllus bimaculatus`) as below:
+
+```Bash
+sh index.ref.filter_v1.sh Gryllus.bimaculatus 1000000
+```
+
+The output is an `index` file ending in `.fai` (`Gryllus.bimaculatus.fa.fai`) and a file called `count.txt` which contains the number of chromosomes over 1000000 in Gryllus bimaculatus
+
+#### Script version 2
+
+Although the abobe is a useful script it requires us to execute the script for each genome separately. However, it would be much more practical if our script could `loop` through a `list` of genomes and execute the same command for each automatically. This way we could do the same job in only a single command.
+
+To achieve this we need to slightly modify our script by adding in a `loop function` and also changing our first argument from a `single item` into a `list`. Below is a script that does exactly this:
+
+```Bash
+#!/bin/bash
+
+infile=$1 # file containing list of individuals
+filter=$2 # value to filter
+
+for species in `cat $infile`;
+do
+samtools faidx ${species}.fa
+awk "\$2 > $filter" ${species}.fa.fai | wc -l | sed "s/^/$species\t/" - >> count_indexes.txt
+done
+```
+
+Before executing the script we need to prepare a list containing the names of all of our genomes. We can do this with a simple command as below:
+
+```Bash
+ls *.fa | cut -d'.' -f1-2 > species.list
+```
+
+Now that our list is ready we can execute the script like below:
+
+```Bash
+sh index.ref.filter_v2.sh species.list 1000000
+```
+
+#### Script version 3
+
+The above is a pretty good script. The only thing missing is that we are not really using the available resources all that efficiently. One good thing about having access to a supercluster is that we can use dedicated computational nodes for running our analysis. This not only allows us to use much more processing power and memory, it also helps us to run multiple jobs at the same time or work on different stuff while our analysis is running.
+
+To `submit` our job to a dedicated computing cluster we have to again slightly modify our script. Specifically we will have to designate in our script the resources we wish to use. We can achieve this by using the `$SBATCH` command:
+
+```Bash
+#!/bin/bash
+
+#SBATCH --job-name=count_index
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --mem=16G
+#SBATCH --partition=short
+#SBATCH --time=30
+
+infile=$1 # file containing list of individuals
+filter=$2 # value to filter
+
+for species in `cat $infile`;
+do
+samtools faidx ${species}.fa
+awk "\$2 > $filter" ${species}.fa.fai | wc -l | sed "s/^/$species\t/" - >> count_indexes.txt
+done
+```
+
+Here we have requested a single core `#SBATCH --ntasks=1` from a single node `#SBATCH --nodes=1` and 16G of memory `#SBATCH --mem=16G`. We have also designated that we wish to use the short partition `#SBATCH --partition=short` and have requested 30 minutes of wall time `#SBATCH --time=30`. We have also named our job `#SBATCH --job-name=count_index` because why not! 
+
+Now all we have to do is submit our script to the que where it will automatically get placed in an appropriate computing node. To do this we use the `sbatch` command.
+
+```Bash
+sbatch index.ref.filter_v2.sh species.list 1000000 
+```
+
+We can check the details of our job and fing information about how long it has been running, which specific node and partition it is on using the squeue command.
+
+```Bash
+squeue -u mbge411
+             JOBID  PARTITION   NAME      USER      ST      TIME      NODES   NODELIST(REASON)
+           2811657  short       count_in  mbge411   R       0:02      1       it03
+```
+
+This command will also produce a slurm file `slurm-${JOBID}.out` which is a log file of all activities going on and is very useful for parsing errors. Always make sure to check the output in your slurm file before moving on to the next or before looking at your results!
+
 
