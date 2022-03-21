@@ -4,6 +4,17 @@ In the last tutorial we introduced the Bourne shell, a command line interpreter 
 
 In its purest form a shell script is a list of commands listed in the order in which they are executed for executing a specific task or analysis. Shell scripts can be used to manipulate files, execute different programs in succession and print outputs such as texts, tables, figures etc. The shell is also a comprehensive programming language which we can use to write novel functions and programs but this feature of shell scripting is out of the scope of this tutorial. Here we will mostly concentrate on the ability of shell scripts to build and save analytical pipelines.
 
+
+- [A Basic Script](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#a-basic-script)
+- [Using Variables](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#using-variables)
+  - [Calling Values](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#calling-values)
+  - [Special Variables in UNIX/LINUX](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#special-variables-in-unixlinux)
+- [Example Scripts](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#example-scripts)
+  - [Script version 1](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#script-version-1)
+  - [Script version 2](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#script-version-2)
+  - [Script version 3](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#script-version-3)
+
+
 ## A Basic Script
 
 All shell scripts end with the extension `.sh` and start with a `shebang` construct in the first line. The `shebang` construct is an essential line which informs the machine which `language` should be used to interpret the script.
@@ -86,7 +97,7 @@ infile=uvarovi.fa
 var1=300
 ```
 
-### Calling Values
+#### Calling Values
 
 To call a certain value, text or file stored as a variable, all we have to do is `prefix` the name of the variable with the dollar sign `$`.
 
@@ -102,9 +113,7 @@ sh loc.sh
 Sariyer Istanbul
 ```
 
-### Special Variables in UNIX/LINUX
-
-#### $n
+#### Special Variables `$n` in UNIX/LINUX
 
 These variables allow us to pass `argument`s on to our scripts based on the order in which they are invoked. In this case `n` is a positive decimal number corresponding to the `position of the argument(s)` that directly come after our script in the command prompt (the first argument is `$1`, the second argument is `$2`, etc.).
 
