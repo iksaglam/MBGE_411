@@ -68,3 +68,56 @@ What is your name?
 Ismail
 Welcome back Ismail :)
 ```
+
+## Using Variables
+
+In the above example as you might have noticed we passed a `variable` directly from the screen to our `shell` script. A `variable` is a character string to which a `value` is assigned. This value can be a specific `text`, `number`, `filename`, `program`, or any type of input you can think of.
+
+We can define a `variable` within the `shell` like below:
+
+```Bash
+my_variable_name=variable_value
+```
+
+Some examples:
+```Bash
+LOC=“Sariyer”
+infile=uvarovi.fa
+var1=300
+```
+
+### Calling Values
+
+To call a certain value, text or file stored as a variable, all we have to do is `prefix` the name of the variable with the dollar sign `$`.
+
+The following script `loc.sh` will call for the variable defined as `LOC` and `print` it onto the screen (i.e. `STDOUT`)
+
+```Bash
+#!/bin/bash
+LOC=“Sariyer Istanbul”
+echo $LOC
+```
+```Bash
+sh loc.sh
+Sariyer Istanbul
+```
+
+### Special Variables in UNIX/LINUX
+
+#### $n
+
+These variables allow us to pass `argument`s on to our scripts based on the order in which they are invoked. In this case `n` is a positive decimal number corresponding to the `position of the argument(s)` that directly come after our script in the command prompt (the first argument is `$1`, the second argument is `$2`, etc.).
+
+For example the following script `personal.loc.sh` uses command line arguments `NAME` and `LOC` to write the location of a person on to the screen
+
+```Bash
+#!/bin/bash
+NAME=$1
+LOC=$2
+echo $NAME is located in $LOC 
+```
+```Bash
+sh personal.loc.sh  Ismail Sariyer
+Ismail is located in Sariyer
+```
+
