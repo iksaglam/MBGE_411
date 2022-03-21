@@ -206,7 +206,7 @@ Here we have requested a single core `#SBATCH --ntasks=1` from a single node `#S
 Now all we have to do is submit our script to the que where it will automatically get placed in an appropriate computing node. To do this we use the `sbatch` command.
 
 ```Bash
-sbatch index.ref.filter_v2.sh species.list 1000000 
+sbatch index.ref.filter_v3.sh species.list 1000000 
 ```
 
 We can check the details of our job and fing information about how long it has been running, which specific node and partition it is on using the squeue command.
