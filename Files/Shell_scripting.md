@@ -8,7 +8,7 @@ In its purest form a shell script is a list of commands listed in the order in w
 - [A Basic Script](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#a-basic-script)
 - [Using Variables](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#using-variables)
   - [Calling Values](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#calling-values)
-  - [Special Variables in UNIX/LINUX](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#special-variables-in-unixlinux)
+  - [Special Variables in UNIX/LINUX](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#special-variables-n-in-unixlinux)
 - [Example Scripts](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#example-scripts)
   - [Script version 1](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#script-version-1)
   - [Script version 2](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md#script-version-2)
