@@ -241,7 +241,7 @@ do
 	samtools view -bS ${i}.sam > ${i}.bam
 	samtools sort ${i}.bam ${i}_sorted
 	samtools view -b -f 0x2 ${i}_sorted.bam > ${i}_sorted_proper.bam
-	java -jar /kuacc/apps/picard/2.22.1/picard.jar MarkDuplicates INPUT=${i}_sorted_proper.bam OUTPUT=${i}_sorted_proper_rmdup.bam METRICS_FILE=${i}_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
+	java -jar ~/bin/picard.jar MarkDuplicates INPUT=${i}_sorted_proper.bam OUTPUT=${i}_sorted_proper_rmdup.bam METRICS_FILE=${i}_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
 	samtools index ${i}_sorted_proper_rmdup.bam
 
 done
