@@ -153,7 +153,7 @@ samtools view -c -f 4 A_CAMD04_sorted.bam
 xxxxx
 ```
 
-To understand how this works let us inspect the SAM format. The SAM format includes a bitwise FLAG field described [here](). The -f/-F options allows us to search for the presense/absence of bits in the FLAG field. In this case `-f 4` only outputs alignments that are unmapped `flag 0x0004 is set` and -F 4 only outputs alignments that are not unmapped `i.e. flag 0x0004 is not set`.
+To understand how this works let us inspect the SAM format. The SAM format includes a bitwise FLAG field described [here](http://www.htslib.org/doc/samtools-flags.html). The -f/-F options allows us to search for the presense/absence of bits in the FLAG field. In this case `-f 4` only outputs alignments that are unmapped `flag 0x0004 is set` and -F 4 only outputs alignments that are not unmapped `i.e. flag 0x0004 is not set`.
 
 For counting paired end alignments we can do something similar and command samtools to output only those reads that have both itself and it's mate mapped:
 
@@ -161,7 +161,72 @@ For counting paired end alignments we can do something similar and command samto
 samtools view -c -f 1 -F 12 A_CAMD04_sorted.bam
 xxxxx
 ```
-The -f 1 flag ouputs only reads that are paired in sequencing and -F 12 only includes reads that are not unmapped `flag 0x0004 is not set` and where the mate is not unmapped `flag 0x0008 is not set`. Here we add `0x0004 + 0x0008 = 12` and use the `-F` (bits not set), meaning you want to include all reads where neither flag `0x0004` or `0x0008` is set. For help understanding the values for the SAM FLAG field there's a handy web tool [here]().
+The -f 1 flag ouputs only reads that are paired in sequencing and -F 12 only includes reads that are not unmapped `flag 0x0004 is not set` and where the mate is not unmapped `flag 0x0008 is not set`. Here we add `0x0004 + 0x0008 = 12` and use the `-F` (bits not set), meaning you want to include all reads where neither flag `0x0004` or `0x0008` is set. For help understanding the values for the SAM FLAG field there's a handy web tool [here](http://broadinstitute.github.io/picard/explain-flags.html).
+
+## Running in parallel or bulk:
+Instead of aligning each paired read one by one normally we would want to do this in bulk. So let us modify our `align_pe_reads.sh` script to include the remainder of our pipeline and to write the script in such a way that we will be able to use it on multiple individuals. One way of doing this would be to tell our script to align all reads within a given list and to align those reads to a given reference genome.
+
+To get things started let us first prepare a list with all the names of the individuals we want to align.
+
+```
+ls *.fastq.gz | cut -d'_' -f1-2 > indv.list
+```
+
+Secondly let us modify our script so it takes in a list of individuas as input and also has a variable that informs the script where all the individual reads (i.e. fastq files) are stored.
+
+```Bash
+#!/bin/bash -l
+
+#SBATCH --job-name=align
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --partition=mid
+#SBATCH --mem=120G
+#SBATCH --time=720
+
+ref=$1
+pop=$2
+reads=~/course_content/week03_tutorial/reads
+
+bwa index -a bwtsw $ref
+```
+
+Lastly we want a loop command that will execute our above alignmment pipeline to each individual in our list.
+
+```Bash
+#!/bin/bash -l
+
+#SBATCH --job-name=align
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --partition=mid
+#SBATCH --mem=120G
+#SBATCH --time=720
+
+ref=$1
+pop=$2
+reads=~/course_content/week03_tutorial/reads
+
+bwa index -a bwtsw $ref
+
+for i in `cat $pop`;
+do
+
+		bwa mem ${ref} $reads/${i}_R1.fastq.gz $reads/${i}_R2.fastq.gz > ${i}.sam
+		samtools view -bS ${i}.sam > ${i}.bam
+		samtools sort ${i}.bam ${i}_sorted
+		samtools view -b -f 0x2 ${i}_sorted.bam > ${i}_sorted_proper.bam
+		java -jar /kuacc/apps/picard/2.22.1/picard.jar MarkDuplicates INPUT=${i}_sorted_proper.bam OUTPUT=${i}_sorted_proper_rmdup.bam METRICS_FILE=${i}_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
+		samtools index ${i}_sorted_proper_rmdup.bam
+
+done
+```
+
+We can use this script to execute the above pipeline and get alignment files for all individuals in indv.list simultaneously using the following command.
+
+```Bash
+sbatch align_pe_reads.sh references/isophya_contigs_CAYMY.fasta indv.list
+```
 
 
 
