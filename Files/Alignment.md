@@ -212,12 +212,12 @@ bwa index -a bwtsw $ref
 for i in `cat $pop`;
 do
 
-		bwa mem ${ref} $reads/${i}_R1.fastq.gz $reads/${i}_R2.fastq.gz > ${i}.sam
-		samtools view -bS ${i}.sam > ${i}.bam
-		samtools sort ${i}.bam ${i}_sorted
-		samtools view -b -f 0x2 ${i}_sorted.bam > ${i}_sorted_proper.bam
-		java -jar /kuacc/apps/picard/2.22.1/picard.jar MarkDuplicates INPUT=${i}_sorted_proper.bam OUTPUT=${i}_sorted_proper_rmdup.bam METRICS_FILE=${i}_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
-		samtools index ${i}_sorted_proper_rmdup.bam
+	bwa mem ${ref} $reads/${i}_R1.fastq.gz $reads/${i}_R2.fastq.gz > ${i}.sam
+	samtools view -bS ${i}.sam > ${i}.bam
+	samtools sort ${i}.bam ${i}_sorted
+	samtools view -b -f 0x2 ${i}_sorted.bam > ${i}_sorted_proper.bam
+	java -jar /kuacc/apps/picard/2.22.1/picard.jar MarkDuplicates INPUT=${i}_sorted_proper.bam OUTPUT=${i}_sorted_proper_rmdup.bam METRICS_FILE=${i}_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
+	samtools index ${i}_sorted_proper_rmdup.bam
 
 done
 ```
