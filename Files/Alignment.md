@@ -54,7 +54,49 @@ Now let us execute the script for one of the genomes using the following command
 sbatch align_pe_reads.sh references/isophya_contigs_CAYMY.fasta
 ```
 
-This will result in several indexes including the BWT index ~/course_content/week03_tutorial/references/isophya_contigs_CAYMY.fasta.bwt which the alignments will be based on. The creation of the index only needs to be performed once and does not have to be recreated for every alignment job. 
+This will result in several indexes including the BWT index `~/course_content/week03_tutorial/references/isophya_contigs_CAYMY.fasta.bwt` which the alignments will be based on. The creation of the index only needs to be performed once and does not have to be recreated for every alignment job. 
 
+### Aligning reads with BWA-MEM
+Now that we have our indexes created, we can start aligning our reads (i.e. individual fastq files) to the reference genome. Let us first create a new directory where we will store our alignment files and cd (change directory) into it.
+
+```Bash
+mkdir alignments
+cd alignments/
+```
+
+Next we will use the BWA-MEM algorithm to align one of our paired-end reads to the reference genome and output results as a SAM (Sequence Alignment/Map Format) file.
+
+bwa mem ../references/isophya_contigs_CAYMY.fasta ../reads/CAYMY_002_R1.fastq.gz ../reads/CAYMY_002_R2.fastq.gz > CAYMY_002.sam
+
+As before we can take a look at our SAM files using less.
+
+```Bash
+less -S CAYMY_002.sam
+```
+
+### SAM/BAM conversion, sorting and PCR clone (duplicate) markup/removal:
+
+To save space we ideally want to transform our SAM file into a binary BAM format and sort by coordinates. Next we usually would like to work with only properly paired reads (i.e. where the forward and reversed reads mapped to the correct positions). Finally we want to remove/mark PCR duplicates using [picard-tools](https://broadinstitute.github.io/picard/), so they do not bias variant calling and genotyping and index our final BAM file.
+
+```Bash
+samtools view -bS CAYMY_002.sam > CAYMY_002.bam
+samtools sort CAYMY_002.bam CAYMY_002_sorted.bam
+```
+
+To view our resulting bam files we can use the following command
+
+```Bash
+samtools view CAYMY_002_sorted.bam | less -S
+```
+
+Next we usually would like to work with only properly paired reads (i.e. where the forward and reversed reads mapped to the correct positions). Finally we want to remove/mark PCR duplicates using `picard-tools`, so they do not bias variant calling and genotyping and index our final BAM file.
+
+```Bash
+samtools view -b -f 0x2 CAYMY_002_sorted.bam > CAYMY_002_sorted_proper.bam
+java -jar ~/bin/picard.jar MarkDuplicates INPUT=CAYMY_002_sorted_proper.bam OUTPUT=CAYMY_002_sorted_proper_rmdup.bam METRICS_FILE=CAYMY_002_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
+samtools index CAYMY_002_sorted_proper_rmdup.bam
+```
+
+For the purposes of this tutorial we are directly removing duplicates `REMOVE_DUPLICATES=True` from our resulting bam files (to primarily save space) but usually we only want to mark our duplicates and not remove them `REMOVE_DUPLICATES=False`.
 
 
