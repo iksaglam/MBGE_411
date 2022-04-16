@@ -253,5 +253,44 @@ We can use this script to execute the above pipeline and get alignment files for
 sbatch align_pe_reads.sh references/isophya_contigs_CAYMY.fasta indv.list
 ```
 
+We can also write a similar script (count_no_align.sh) for calculating alignments statistics and execute it in a similar fashion.
+
+```Bash
+#!/bin/bash
+
+#SBATCH --job-name=count
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --partition=mid
+#SBATCH --time=720
+
+pop=$1
+reads=~/course_content/week03_tutorial/reads
+
+
+
+for i in `cat $pop`;
+do
+	
+	samtools view -c -f 1 -F 12 ${i}_sorted.bam >> no_align.txt
+	samtools view -c -f 1 -F 12 ${i}_sorted_proper.bam >> no_prop.txt
+	samtools view -c -f 1 -F 12 ${i}_sorted_proper_rmdup.bam >> no_rmdup_align.txt
+	zless $reads/${i}_R1.fastq.gz | wc -l >> no_R1_reads.txt
+			
+
+done
+```
+
+```Bash
+sbatch count_no_align.sh indv.list
+```
+
+Once our alignment statistics script is done we could reformat its output into a nice and neat table if we want.
+
+```Bash
+awk '{c=$1/2; print c}' no_R1_reads.txt > no_reads.txt
+paste indv.list no_reads.txt no_align.txt no_prop.txt no_rmdup_align.txt | sed '1iIndv	no_reads	no_align	no_prop	no_rmdup' > align_count.txt
+```
+
 
 
