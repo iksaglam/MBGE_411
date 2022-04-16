@@ -99,4 +99,16 @@ samtools index CAYMY_002_sorted_proper_rmdup.bam
 
 For the purposes of this tutorial we are directly removing duplicates `REMOVE_DUPLICATES=True` from our resulting bam files (to primarily save space) but usually we only want to mark our duplicates and not remove them `REMOVE_DUPLICATES=False`.
 
+### Alignment statistics
+
+After aligning our reads to a reference genome a good first step would be to check the succes rate of our alignments. We can do this using a simple command in `samtools` called `flagstats`
+
+```Bash
+samtools flagstat A_CAMD04_sorted.bam
+
+
+
+```
+
+
 
