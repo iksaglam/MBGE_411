@@ -104,7 +104,7 @@ For the purposes of this tutorial we are directly removing duplicates `REMOVE_DU
 After aligning our reads to a reference genome a good first step would be to check the succes rate of our alignments. We can do this using a simple command in `samtools` called `flagstats`
 
 ```Bash
-samtools flagstat A_CAMD04_sorted.bam
+samtools flagstat CAYMY_002_sorted.bam
 
 
 
@@ -113,7 +113,7 @@ samtools flagstat A_CAMD04_sorted.bam
 This is also a good way to check how many reads we loose in each of our filtering steps after alignment (i.e. after properly pairing reads and removing PCR duplicates)
 
 ```Bash
-samtools flagstat A_CAMD04_sorted_proper.bam
+samtools flagstat CAYMY_002_sorted_proper.bam
 
 
 
