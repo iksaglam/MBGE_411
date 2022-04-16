@@ -194,7 +194,7 @@ Instead of aligning each paired read one by one normally we would want to do thi
 To get things started let us first prepare a list with all the names of the individuals we want to align.
 
 ```
-ls *.fastq.gz | cut -d'_' -f1-2 > indv.list
+ls *_R1.fastq.gz | cut -d'_' -f1-2 > indv.list
 ```
 
 Secondly let us modify our script so it takes in a list of individuas as input and also has a variable that informs the script where all the individual reads (i.e. fastq files) are stored.
