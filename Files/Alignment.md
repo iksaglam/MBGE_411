@@ -80,7 +80,7 @@ To save space we ideally want to transform our SAM file into a binary BAM format
 
 ```Bash
 samtools view -bS CAYMY_002.sam > CAYMY_002.bam
-samtools sort CAYMY_002.bam CAYMY_002_sorted.bam
+samtools sort CAYMY_002.bam CAYMY_002_sorted
 ```
 
 To view our resulting bam files we can use the following command
