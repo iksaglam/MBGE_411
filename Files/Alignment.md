@@ -110,5 +110,58 @@ samtools flagstat A_CAMD04_sorted.bam
 
 ```
 
+This is also a good way to check how many reads we loose in each of our filtering steps after alignment (i.e. after properly pairing reads and removing PCR duplicates)
+
+```Bash
+samtools flagstat A_CAMD04_sorted_proper.bam
+
+
+
+```
+
+
+```Bash
+samtools flagstat CAYMY_002_sorted_proper_rmdup.bam
+
+
+
+```
+
+Above we used the flagsat command in samtools to view our aligment statistics. But we could also easily use the samtools view command together with the right fags to obtain the same results.
+
+
+To get the total number of alignments we can simply tell samtools to count instead of print `-c option`:
+
+```Bash
+samtools view -c A_CAMD04_sorted.bam
+xxxxxxxx
+```
+
+In this case we are only interested in counting the total number of mapped reads so we add the `-F 4` flag.
+
+```Bash
+$ samtools view -c -F 4 A_CAMD04_sorted.bam
+xxxx
+```
+
+Alternativley, we can count only the unmapped reads with `-f 4`:
+
+
+
+```Bash
+samtools view -c -f 4 A_CAMD04_sorted.bam
+xxxxx
+```
+
+To understand how this works let us inspect the SAM format. The SAM format includes a bitwise FLAG field described [here](). The -f/-F options allows us to search for the presense/absence of bits in the FLAG field. In this case `-f 4` only outputs alignments that are unmapped `flag 0x0004 is set` and -F 4 only outputs alignments that are not unmapped `i.e. flag 0x0004 is not set`.
+
+For counting paired end alignments we can do something similar and command samtools to output only those reads that have both itself and it's mate mapped:
+
+```Bash
+samtools view -c -f 1 -F 12 A_CAMD04_sorted.bam
+xxxxx
+```
+The -f 1 flag ouputs only reads that are paired in sequencing and -F 12 only includes reads that are not unmapped `flag 0x0004 is not set` and where the mate is not unmapped `flag 0x0008 is not set`. Here we add `0x0004 + 0x0008 = 12` and use the `-F` (bits not set), meaning you want to include all reads where neither flag `0x0004` or `0x0008` is set. For help understanding the values for the SAM FLAG field there's a handy web tool [here]().
+
 
 
