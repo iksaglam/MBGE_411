@@ -106,8 +106,17 @@ After aligning our reads to a reference genome a good first step would be to che
 ```Bash
 samtools flagstat CAYMY_002_sorted.bam
 
-
-
+13200883 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+10515759 + 0 mapped (79.66%:-nan%)
+13200883 + 0 paired in sequencing
+6571936 + 0 read1
+6628947 + 0 read2
+8465888 + 0 properly paired (64.13%:-nan%)
+10000813 + 0 with itself and mate mapped
+514946 + 0 singletons (3.90%:-nan%)
+1535967 + 0 with mate mapped to a different chr
+790787 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
 This is also a good way to check how many reads we loose in each of our filtering steps after alignment (i.e. after properly pairing reads and removing PCR duplicates)
@@ -115,16 +124,34 @@ This is also a good way to check how many reads we loose in each of our filterin
 ```Bash
 samtools flagstat CAYMY_002_sorted_proper.bam
 
-
-
+8465888 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+8465888 + 0 mapped (100.00%:-nan%)
+8465888 + 0 paired in sequencing
+4228729 + 0 read1
+4237159 + 0 read2
+8465888 + 0 properly paired (100.00%:-nan%)
+8465888 + 0 with itself and mate mapped
+0 + 0 singletons (0.00%:-nan%)
+17271 + 0 with mate mapped to a different chr
+6433 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
 
 ```Bash
 samtools flagstat CAYMY_002_sorted_proper_rmdup.bam
 
-
-
+4485682 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+4485682 + 0 mapped (100.00%:-nan%)
+4485682 + 0 paired in sequencing
+2238626 + 0 read1
+2247056 + 0 read2
+4485682 + 0 properly paired (100.00%:-nan%)
+4485682 + 0 with itself and mate mapped
+0 + 0 singletons (0.00%:-nan%)
+17271 + 0 with mate mapped to a different chr
+6433 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
 Above we used the flagsat command in samtools to view our aligment statistics. But we could also easily use the samtools view command together with the right fags to obtain the same results.
@@ -134,23 +161,21 @@ To get the total number of alignments we can simply tell samtools to count inste
 
 ```Bash
 samtools view -c CAYMY_002_sorted.bam
-xxxxxxxx
+13200883
 ```
 
 In this case we are only interested in counting the total number of mapped reads so we add the `-F 4` flag.
 
 ```Bash
-$ samtools view -c -F 4 CAYMY_002_sorted.bam
-xxxx
+samtools view -c -F 4 CAYMY_002_sorted.bam
+10515759
 ```
 
 Alternativley, we can count only the unmapped reads with `-f 4`:
 
-
-
 ```Bash
 samtools view -c -f 4 CAYMY_002_sorted.bam
-xxxxx
+2685124
 ```
 
 To understand how this works let us inspect the SAM format. The SAM format includes a bitwise FLAG field described [here](http://www.htslib.org/doc/samtools-flags.html). The -f/-F options allows us to search for the presense/absence of bits in the FLAG field. In this case `-f 4` only outputs alignments that are unmapped `flag 0x0004 is set` and -F 4 only outputs alignments that are not unmapped `i.e. flag 0x0004 is not set`.
@@ -159,7 +184,7 @@ For counting paired end alignments we can do something similar and command samto
 
 ```Bash
 samtools view -c -f 1 -F 12 CAYMY_002_sorted.bam
-xxxxx
+10000813
 ```
 The -f 1 flag ouputs only reads that are paired in sequencing and -F 12 only includes reads that are not unmapped `flag 0x0004 is not set` and where the mate is not unmapped `flag 0x0008 is not set`. Here we add `0x0004 + 0x0008 = 12` and use the `-F` (bits not set), meaning you want to include all reads where neither flag `0x0004` or `0x0008` is set. For help understanding the values for the SAM FLAG field there's a handy web tool [here](http://broadinstitute.github.io/picard/explain-flags.html).
 
