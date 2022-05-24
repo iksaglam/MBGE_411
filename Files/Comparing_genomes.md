@@ -172,11 +172,11 @@ As we can see there are different models we can use. For now we will choose the 
 Let us estimate genotype likelihoods (GL) for the European populations. A possible command line to estimate GLs might be:
 
 ```Bash
-./angsd -b CEU.bamlist -ref references/hum_ch2_ref.fa -out results_GL/CEU -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 2 -doGlf 4 -r 2
+./angsd -b CEU.bamlist -ref references/hum_ch2_ref.fa -out results_GL/CEU -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 1 -doGlf 4 -r 2
 ```
 
 where we specify:
-- GL 2: genotype likelihood model as in GATK
+- GL 1: genotype likelihood model as in SAMtools
 - doGlf 4: output in text format
 - doCounts 1: Count the number A,C,G,T. All sites, All samples
 
