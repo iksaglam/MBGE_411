@@ -350,7 +350,7 @@ We need to index this file in order for ANGSD to process it.
 We will now determine genotypes in each population and then calculate allele frequencies based on called genotypes. We can do this with the following code:
 
 ```Bash
-./angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_geno/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 2 -doCounts 1 -GL 2 -doGlf 1 -doMajorMinor 1 -doGeno 5 -doPost 1 -doMaf 1 -postCutoff 0.80 -r 2 -sites snp.txt
+./angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_geno/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 2 -doCounts 1 -GL 2 -doGlf 1 -doMajorMinor 1 -doGeno 5 -dovcf 1 -doPlink 2 -doPost 1 -doMaf 1 -postCutoff 0.80 -r 2 -sites snp.txt
 ```
 In the above code we do the following:
 
