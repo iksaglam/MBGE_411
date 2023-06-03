@@ -93,7 +93,7 @@ Next we usually would like to work with only properly paired reads (i.e. where t
 
 ```Bash
 samtools view -b -f 0x2 CAYMY_002_sorted.bam > CAYMY_002_sorted_proper.bam
-java -jar ~/bin/picard.jar MarkDuplicates INPUT=CAYMY_002_sorted_proper.bam OUTPUT=CAYMY_002_sorted_proper_rmdup.bam METRICS_FILE=CAYMY_002_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
+java -jar /kuacc/apps/picard/2.22.1/picard.jar MarkDuplicates INPUT=CAYMY_002_sorted_proper.bam OUTPUT=CAYMY_002_sorted_proper_rmdup.bam METRICS_FILE=CAYMY_002_metrics.txt VALIDATION_STRINGENCY=LENIENT  REMOVE_DUPLICATES=True
 samtools index CAYMY_002_sorted_proper_rmdup.bam
 ```
 
