@@ -133,7 +133,7 @@ Ismail is located in Sariyer
 
 #### Script version 1
 
-Now let us write a `shell script` for a specific task. In this case we have several reference genomes within the directory `~/course_content/week02_tutorial/`. We want to `index` all of these genomes using the program `samtools` and from the indexed file count the number of chromosomes that are over 1 million base pairs in length.
+Now let us write a `shell script` for a specific task. In this case we have several reference genomes within the directory `~/hpc_run/2024SpringMBGE411/week02_tutorial/genomes`. We want to `index` all of these genomes using the program `samtools` and from the indexed file count the number of chromosomes that are over 1 million base pairs in length.
 
 To execute this procedure for a single genome we could write a script like below:
 
