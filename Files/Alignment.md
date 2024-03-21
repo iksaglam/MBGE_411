@@ -5,8 +5,7 @@
 As a first step copy all content you will need in this exercise into your own directory and check that everything has been copied correcly.
 
 ```Bash
-cd ~/my_directory/
-cp -r ~/course_content/week03_tutorial/* ./
+cp -r /kuacc/users/mbge411/hpc_run/2024SpringMBGE411/week03_tutorial ./
 ls *
 ```
 
@@ -25,8 +24,8 @@ vim align_pe_reads.sh
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --partition=mid
-#SBATCH --mem=120G
-#SBATCH --time=720
+#SBATCH --mem=30G
+#SBATCH --time=6:00:00
 ```
 
 ### Creating BWA-MEM index
@@ -206,8 +205,8 @@ Secondly let us modify our script so it takes in a list of individuas as input a
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --partition=mid
-#SBATCH --mem=120G
-#SBATCH --time=720
+#SBATCH --mem=30G
+#SBATCH --time=6:00:00
 
 ref=$1
 pop=$2
@@ -225,8 +224,8 @@ Lastly we want a loop command that will execute our above alignmment pipeline to
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --partition=mid
-#SBATCH --mem=120G
-#SBATCH --time=720
+#SBATCH --mem=30G
+#SBATCH --time=6:00:00
 
 ref=$1
 pop=$2
@@ -262,7 +261,7 @@ We can also write a similar script (count_no_align.sh) for calculating alignment
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --partition=mid
-#SBATCH --time=720
+#SBATCH --time=2:00:00
 
 pop=$1
 reads=~/course_content/week03_tutorial/reads
