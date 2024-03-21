@@ -40,8 +40,8 @@ The basic command for indexing the genome using BWA which we will add to our she
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --partition=mid
-#SBATCH --mem=120G
-#SBATCH --time=720
+#SBATCH --mem=30G
+#SBATCH --time=6:00:00
 
 ref=$1
 
