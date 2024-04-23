@@ -10,7 +10,7 @@
 - Perform a sliding windows scan based on allele frequency differentiation
 
 
-All data, scripts and results in this tutorial can be found in the following directory: `/kuacc/users/mbge411/course_content/selection_LCT_example`
+All data, scripts and results in this tutorial can be found in the following directory: `/kuacc/users/mbge411/hpc_run/2024SpringMBGE411/week04_tutorial`
 
 
 ## Practical 1: Estimating allele frequencies and variants in African (LWK, YRI) and European (CEU) populations
@@ -28,7 +28,7 @@ To accomplish these goals, we will use the program [ANGSD](http://www.popgen.dk/
 First let’s take a look at our options in ANGSD:
 
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd
 ```
 
 We should see something like this:
@@ -68,7 +68,7 @@ Examples:
 ```
 If the input file is in BAM format, the possible options are:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -bam
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -bam
 ...
 parseArgs_bambi.cpp: bam reader:
         -bam/-b         (null)  (list of BAM/CRAM files)
@@ -100,7 +100,7 @@ Examples for region specification:
 ```
 Now let us define filtering options
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b human_pop.bamlist -ref references/hum_ch2_ref.fa -out results_qs/human_pop -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -doQsDist 1 -doDepth 1 -doCounts 1 -maxDepth 200 -minQ 0 -r 2
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b human_pop.bamlist -ref references/hum_ch2_ref.fa -out results_qs/human_pop -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -doQsDist 1 -doDepth 1 -doCounts 1 -maxDepth 200 -minQ 0 -r 2
 ```
 These filters will retain only uniquely mapping reads, not tagged as bad, considering only proper pairs, without trimming, and adjusting for indel/mapping (as in samtools). 
 `-C 50` reduces the effect of reads with excessive mismatches, while `-baq 1` computes base alignment quality (BAQ) as explained [here](http://samtools.sourceforge.net/mpileup.shtml) and is used to rule out false SNPs close to INDELS.
@@ -119,12 +119,12 @@ Rscript scripts/plotQC.R results_qs/human_pop.qs
 It is also always good practice to remove sites where a fraction (usually half) of the individuals have no data. This is achieved by the `-minInd` option
 So a good command line for filtering data could look like this:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b human_pop.bamlist -ref references/hum_ch2_ref.fa -out Results/human_pop -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 15 -setMinDepth 6 -setMaxDepth 30 -doCounts 1 -r 2
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b human_pop.bamlist -ref references/hum_ch2_ref.fa -out Results/human_pop -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 15 -setMinDepth 6 -setMaxDepth 30 -doCounts 1 -r 2
 ```
 Now we are ready to calculate the genotype likelihoods at each site for each individual.
 To do this we need to specify which genotype likelihood model to use:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -GL
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -GL
 ...
 -GL=0:
         1: SAMtools
@@ -243,7 +243,7 @@ zless results_gl/CEU.geno.gz | grep NN - | wc -l
 ```
 Let us now use an informative prior `-doPost 1` to  calculate genotype posterior probabilities by assuming HWE and using frequency of observed alleles. The command line for this would be:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -glf results_gl/CEU.glf.gz -fai references/hum_ch2_ref.fa.fai -nInd 10 -out results_gl/CEU_2 -doMajorMinor 1 -doGeno 5 -doPost 1 -doMaf 1
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -glf results_gl/CEU.glf.gz -fai references/hum_ch2_ref.fa.fai -nInd 10 -out results_gl/CEU_2 -doMajorMinor 1 -doGeno 5 -doPost 1 -doMaf 1
 ```
 When we look at the results we can see that all sites have been called and we no longer have any missing sites.
 ```Bash
@@ -269,11 +269,11 @@ sed 1d  functional_snps.txt | awk '{print $2, $3}' > snp.txt
 ```
 We need to index this file in order for ANGSD to process it.
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd sites index snp.txt
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd sites index snp.txt
 ```
 We will now determine genotypes in each population and then calculate allele frequencies based on called genotypes. We can do this with the following code:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_geno/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 2 -doCounts 1 -GL 2 -doGlf 1 -doMajorMinor 1 -doGeno 5 -dovcf 1 -doPlink 2 -doPost 1 -doMaf 1 -postCutoff 0.80 -r 2 -sites snp.txt
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_geno/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 2 -doCounts 1 -GL 2 -doGlf 1 -doMajorMinor 1 -doGeno 5 -dovcf 1 -doPlink 2 -doPost 1 -doMaf 1 -postCutoff 0.80 -r 2 -sites snp.txt
 ```
 In the above code we do the following:
 - use the SAMtools genotype likelihood model `-GL 1`
@@ -290,7 +290,7 @@ When the analysis is complete, open the output files and calculate allele freque
 We now want to estimate allele frequencies at each site. In other words, at each site we want to estimate (or count) how many copies of different alleles (two in case of biallelic variants) we observe in our sample (across all sequenced individuals).
 ANGSD has an option to estimate allele frequencies taking into account data uncertainty from genotype likelihoods:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -doMaf
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -doMaf
 ...
 -doMaf  0 (Calculate persite frequencies '.mafs.gz')
         1: Frequency (fixed major and minor)
@@ -318,7 +318,7 @@ NB These frequency estimators requires major/minor -doMajorMinor
 ```
 Since we will be counting alleles the estimation of allele frequencies requires the specification of how to assign the major and minor alleles (if biallelic).
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -doMajorMinor
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -doMajorMinor
 ...
         -doMajorMinor   0
         1: Infer major and minor from GL
@@ -331,7 +331,7 @@ Since we will be counting alleles the estimation of allele frequencies requires 
 ```
 A command line to estimate allele frequencies for populations might look like this:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_mafs/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_mafs/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1
 ```
 This analysis will return an output file ending in `.mafs.gz`. Let us take a look:
 ```Bash
@@ -356,7 +356,7 @@ There are two main ways to call SNPs using ANGSDs:
 We can filter our allele frequency file so that only sites with a minor allele frequency over 0.05 are kept `-minMaf 0.05` or/and keep only those sites whose probability of being variable is over a specified p value `-SNP_pval 1e-12`.
 Let us now do SNP calling using the following code for our populations:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_mafs/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 2 -doGlf 1 -doMajorMinor 1 -doMaf 1 -minMaf 0.05 -SNP_pval 1e-12 -r 2
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b ${pop}.bamlist -ref ${ref} -out results_pops_mafs/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 2 -doGlf 1 -doMajorMinor 1 -doMaf 1 -minMaf 0.05 -SNP_pval 1e-12 -r 2
 ```
 What are the minor allele frequencies for the functional SNPs `rs4988235 and rs182549` controlling lactose tolerance? Are they similar to the ones we calculated using called genotypes? Can we find these SNPs in the African populations?
 ## Identifying signatures of natural selection around the LCT (Lactase-phlorizin hydrolase) gene in European populations.
@@ -370,7 +370,7 @@ One of the most important aspects of data analysis for population genetics is th
 To calculate `SFS` of populations using [ANGSD](http://www.popgen.dk/angsd/index.php/ANGSD) we will first compute genotype likelihoods. Then from these quantities [ANGSD](http://www.popgen.dk/angsd/index.php/ANGSD) computes posterior probabilities of `Sample Allele Frequency (SAF)`, for each site. Finally, an estimate of the `SFS` is computed.
 These steps can be accomplished in [ANGSD](http://www.popgen.dk/angsd/index.php/ANGSD) using `-doSaf 1/2` options and the program `realSFS`.
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -doSaf
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -doSaf
 ...
 -doSaf		0
 	1: perform multisample GL estimation
@@ -390,16 +390,16 @@ NB:
 ```
 We will compute the `SFS` for each population separately. We want to estimate the `unfolded SFS` so we will use our `reference genome` to determine `ancestral` and `derived` states. The following code can be used to calculate `SFS` of populations:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b ${pop}.bamlist -ref $ref -anc $anc -out results_sfs/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -doCounts 1 -GL 2 -doSaf 1
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b ${pop}.bamlist -ref $ref -anc $anc -out results_sfs/${pop} -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -doCounts 1 -GL 2 -doSaf 1
 ```
 Let us take a look at the output file.
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS print results_sfs/CEU.saf.idx | less -S
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS print results_sfs/CEU.saf.idx | less -S
 ```
 These values represent the `sample allele frequency likelihoods` at each site. The first value (after the chromosome and position columns) is the likelihood of having 0 copies of the derived allele, the second indicates the probability of having 1 copy and so on. Note that these values are in log format and scaled so that the maximum is 0.
 The next step would be to use these likelihoods and estimate the overall SFS. This is achieved by the program realSFS.
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS
 -> ---./realSFS------
 	-> EXAMPLES FOR ESTIMATING THE (MULTI) SFS:
 	-> Estimate the SFS for entire genome??
@@ -424,7 +424,7 @@ The next step would be to use these likelihoods and estimate the overall SFS. Th
 ```
 We can use the following command to estimate the SFS for each population:
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS results_sfs/${pop}.saf.idx > results_sfs/${pop}.sfs
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS results_sfs/${pop}.saf.idx > results_sfs/${pop}.sfs
 ```
 Let us have a look at the output of one of the populations (CEU):
 ```Bash
@@ -440,9 +440,9 @@ Now, we need to estimate a `multi-dimensional SFS` between our populations. The 
 An important issue when doing this is to be sure that we are comparing the exact same sites between populations. [ANGSD](http://www.popgen.dk/angsd/index.php/ANGSD) does that automatically and considers only a set of overlapping sites.
 We are performing `PBS` assuming `CEU (Europeans)` are the target population (i.e. target of selection), and `LWK` and `YRI` as reference populations. `2D-SFS` between populations can be computed using the following code:
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS results_sfs/LWK.saf.idx results_sfs/YRI.saf.idx > results_sfs/LWK.YRI.2dsfs
-/userfiles/iksaglam/bin/angsd/misc/realSFS results_sfs/LWK.saf.idx results_sfs/CEU.saf.idx > results_sfs/LWK.CEU.2dsfs
-/userfiles/iksaglam/bin/angsd/misc/realSFS results_sfs/YRI.saf.idx results_sfs/CEU.saf.idx > results_sfs/YRI.CEU.2dsfs
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS results_sfs/LWK.saf.idx results_sfs/YRI.saf.idx > results_sfs/LWK.YRI.2dsfs
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS results_sfs/LWK.saf.idx results_sfs/CEU.saf.idx > results_sfs/LWK.CEU.2dsfs
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS results_sfs/YRI.saf.idx results_sfs/CEU.saf.idx > results_sfs/YRI.CEU.2dsfs
 ```
 The output file is a flatten matrix, where each value is the count of sites with the corresponding joint frequency ordered as \[0,0\] \[0,1\] and so on.
 ```Bash
@@ -460,16 +460,16 @@ Now that we have `2D-SFS` between all populations we can calculate a`llele frequ
 Specifically, we are computing a `sliding windows scan`, with `windows of 50kbp` and a `step of 10kbp`. This can be achieved using the following commands:
 The first command will compute per-site FST indexes (please note the order of files):
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS fst index results_sfs/LWK.saf.idx results_sfs/YRI.saf.idx results_sfs/CEU.saf.idx -sfs results_sfs/LWK.YRI.2dsfs -sfs results_sfs/LWK.CEU.2dsfs -sfs results_sfs/YRI.CEU.2dsfs -whichFST 1 -fstout results_fst/CEU.pbs
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS fst index results_sfs/LWK.saf.idx results_sfs/YRI.saf.idx results_sfs/CEU.saf.idx -sfs results_sfs/LWK.YRI.2dsfs -sfs results_sfs/LWK.CEU.2dsfs -sfs results_sfs/YRI.CEU.2dsfs -whichFST 1 -fstout results_fst/CEU.pbs
 ```
 we can take a look at these values using the following command:
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS fst print results_fst/CEU.pbs.fst.idx | less -S
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS fst print results_fst/CEU.pbs.fst.idx | less -S
 ```
 where columns are: `chromosome`, `position`, `(a), (a+b) values` for the three FST comparisons, where `FST is defined as a/(a+b)`. Note that FST on multiple SNPs is calculated as `sum(a)/sum(a+b)`.
 The next command will be perform a sliding windows analysis:
 ```Bash
-/userfiles/iksaglam/bin/angsd/misc/realSFS fst stats2 results_fst/CEU.pbs.fst.idx -win 50000 -step 10000 -whichFST 1 > results_fst/CEU.pbs.fst.txt
+/kuacc/users/mbge411/hpc_run/bin/angsd/misc/realSFS fst stats2 results_fst/CEU.pbs.fst.idx -win 50000 -step 10000 -whichFST 1 > results_fst/CEU.pbs.fst.txt
 ```
 We can take a look at the output file:
 ```Bash
