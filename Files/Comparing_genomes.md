@@ -147,7 +147,7 @@ Filedumping:
 As we can see there are different models we can use. For now we will choose the first one: SAMtools
 Let us estimate genotype likelihoods (GL) for the European populations. A possible command line to estimate GLs might be:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b CEU.bamlist -ref references/hum_ch2_ref.fa -out results_GL/CEU -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 1 -doGlf 4 -r 2
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b CEU.bamlist -ref references/hum_ch2_ref.fa -out results_GL/CEU -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 1 -doGlf 4 -r 2
 ```
 where we specify:
 - GL 1: genotype likelihood model as in SAMtools
@@ -169,7 +169,7 @@ zless results_qs/CEU.glf.gz | awk '{print NF}' | sort -nu | tail -n 1
 We are now ready to call genotypes from sequencing data. We calculate genotype probabilities at each site for each individual using the genotype likelihoods calculated above.
 In ANGSD, the option to call genotypes is `-doGeno`:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -doGeno
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -doGeno
 ...
 -doGeno 0
         1: write major and minor
@@ -191,7 +191,7 @@ In ANGSD, the option to call genotypes is `-doGeno`:
 Let us set `-doGeno 4`, so our genotypes are coded as AA,AC etc. We also want to print the major and minor alleles so we set `-doGeno 5`.
 To calculate the posterior probability of genotypes we need to define a model.
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -doPost
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -doPost
 ...
 -doPost 0       (Calculate posterior prob 3xgprob)
         1: Using frequency as prior
@@ -203,7 +203,7 @@ To calculate the posterior probability of genotypes we need to define a model.
 For now let us choose `-doPost 2`, meaning we have chosen a uniform prior.
 Furthermore, to calculate genotype posterior probabilities we need to assign the major and minor alleles (if biallelic).
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -doMajorMinor
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -doMajorMinor
 ...
         -doMajorMinor   0
         1: Infer major and minor from GL
@@ -216,8 +216,8 @@ Furthermore, to calculate genotype posterior probabilities we need to assign the
 ```
 A typical command for genotype calling is (assuming we are analyzing CEU samples):
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -b CEU.bamlist -ref references/hum_ch2_ref.fa -out results_gl/CEU -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 2 -doGlf 1
-/userfiles/iksaglam/bin/angsd/angsd -glf results_gl/CEU.glf.gz -fai references/hum_ch2_ref.fa.fai -nInd 10 -out results_gl/CEU  -doMajorMinor 1 -doGeno 5 -doPost 2 -doMaf 1
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -b CEU.bamlist -ref references/hum_ch2_ref.fa -out results_gl/CEU -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 -GL 2 -doGlf 1
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -glf results_gl/CEU.glf.gz -fai references/hum_ch2_ref.fa.fai -nInd 10 -out results_gl/CEU  -doMajorMinor 1 -doGeno 5 -doPost 2 -doMaf 1
 ```
 Let us take a look at the output file:
 ```Bash
@@ -232,7 +232,7 @@ zless results_gl/CEU.geno.gz | grep NN - | wc -l
 Why is that?
 You can control how to set a site as “missing genotype” in an individual when their confidence is low with `-postCutoff`. For instance, we can set a site as “missing genotype” when the highest genotype posterior probability at that site for that individual is below `0.95`:
 ```Bash
-/userfiles/iksaglam/bin/angsd/angsd -glf results_gl/CEU.glf.gz -fai references/hum_ch2_ref.fa.fai -nInd 10 -out results_gl/CEU  -doMajorMinor 1 -doGeno 3 -doPost 2 -doMaf 1 -postCutoff 0.95
+/kuacc/users/mbge411/hpc_run/bin/angsd/angsd -glf results_gl/CEU.glf.gz -fai references/hum_ch2_ref.fa.fai -nInd 10 -out results_gl/CEU  -doMajorMinor 1 -doGeno 3 -doPost 2 -doMaf 1 -postCutoff 0.95
 ```
 How many sites do we have in total? How many sites have at least one missing genotype now?
 ```Bash
