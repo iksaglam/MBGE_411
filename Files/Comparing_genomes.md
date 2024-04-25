@@ -113,7 +113,7 @@ results/human_pop.arg  Results/human_pop.depthGlobal results/human_pop.depthSamp
 ```
 Let us compute the percentiles of these distributions (and visualize them) in order to make informative decisions on threshold values for filtering. We can use an Rscript to do this
 ```Bash
-Rscript scripts/plotQC.R results_qs/human_pop.qs
+Rscript scripts/plotQC.R results_qs/human_pop
 ```
 **QUESTION:** Which values would you choose as sensible thresholds on quality score and depth (minimum and maximum)?
 It is also always good practice to remove sites where a fraction (usually half) of the individuals have no data. This is achieved by the `-minInd` option
