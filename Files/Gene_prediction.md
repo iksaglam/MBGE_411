@@ -13,7 +13,7 @@
 - Click the corresponding Contigview to view the genome sequence in the matching region with annotation. If you display gene information, you will see that the URO-D gene maps on the sequence, and what the gene structure looks like. You will find many isoforms coming from the same region.
 - In the contig view, the blast hits are shown. By default it shows the selected hit with 2kb flanking regions. To see the hit exactly, remove these flanking regions (change location to 1:45010950-45015575, and click "Go"). 
 - Use "Export Data" in the left menu and select Genbank or EMBL format to download the data in flat file format. You can easily locate features in this file, but remember that these locations are according to the genome reference sequence! As our query sequence differs (hit starts at 150, indels are present in the hit), you cannot simply transfer these data to our sequence.
-- You can find the matching isoform (to the one given in the U30787 genbank file) by searching for the protein_id AAC50482 given in the genbank file in the generated genbank file: it is a db_xref of the isoform identified by transcript_id ENST00000246337 or RefSeq_mRNA NM_000374. We will use this to predict the gene structure of this isoform using spidey.
+- You can find the matching isoform (to the one given in the U30787 genbank file) by searching for the protein_id AAC50482 given in the genbank file in the generated genbank file: it is a db_xref of the isoform identified by transcript_id ENST00000246337 or RefSeq_mRNA NM_000374.
 
 ### Predict genes using genscan
 - Connect to the [genscan](http://hollywood.mit.edu/GENSCAN.html) server.
