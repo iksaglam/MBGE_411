@@ -6,6 +6,7 @@ Practicals and tutorials for **MBGE411 Genome Analysis and Bioinformatics** cour
 - #### **Week 2:** [Introduction to Shell Scripting](https://github.com/iksaglam/MBGE_411/blob/main/Files/Shell_scripting.md)
 - #### **Week 3-4:** [Introduction to indexing and short read alignment](https://github.com/iksaglam/MBGE_411/blob/main/Files/Alignment.md)
 - #### **Week 5-6:** [Comparing genomes](https://github.com/iksaglam/MBGE_411/blob/main/Files/Comparing_genomes.md)
+- #### **Week 7:** [Gene Prediction](https://github.com/iksaglam/MBGE_411/blob/main/Files/Gene_prediction.md)
 
 ## **Useful Websites**
 - #### [sandbox.bio](https://sandbox.bio/)
