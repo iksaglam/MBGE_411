@@ -8,7 +8,7 @@
 
 ### Find the gene structure information in a genome databases:
 - Get sequence from NCBI, in [fasta] and [genbank] formats (genbank format contains the correct gene structure).
-- Locate the sequence on the genome by going to [Ensembl](https://www.ensembl.org/index.html), selecting human, and choosing the blast link. Paste the sequence in the box. You can use BLAT as the search tool.
+- Locate the sequence on the genome by going to [Ensembl] (https://www.ensembl.org/index.html), selecting human, and choosing the blast link. Paste the sequence in the box. You can use BLAT as the search tool.
 - The sequence has several differences between the U30787 sequence and the genome reference sequence, which is reflected in a "broken up" set of hits. Select the largest hit in "Alignment summary", note its position in the query (150-4510) and in the genome (chr1:45011305-45015669). Check the alignment to see that there are indels in this large hit.
 - Click the corresponding Contigview to view the genome sequence in the matching region with annotation. If you display gene information, you will see that the URO-D gene maps on the sequence, and what the gene structure looks like. You will find many isoforms coming from the same region.
 - In the contig view, the blast hits are shown. By default it shows the selected hit with 2kb flanking regions. To see the hit exactly, remove these flanking regions (change location to 1:45010950-45015575, and click "Go"). 
